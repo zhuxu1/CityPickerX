@@ -1,0 +1,3 @@
+include ':citypickerx'
+include ':app'
+rootProject.name = "CityPickerXSample"

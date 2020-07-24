@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/act_custom_head_view_p"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingTop="20dp">
+
+    <TextView
+        android:id="@+id/act_custom_head_view_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="当前定位"
+        android:textColor="@color/z_color_black_txt"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <com.zhuxu.citypickerz.views.AutoLinefeedLayout
+        android:id="@+id/act_custom_head_view_childlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp" />
+</LinearLayout>
