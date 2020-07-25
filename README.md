@@ -34,7 +34,7 @@
 * 添加单独设置item icon功能
 * 解决BUG
 
-[点击下载demo(如无法下载请issue提交)](http://d.7short.com/citypickerx)
+[点击下载demo(如无法下载请issue提交)](http://d.7short.com/CityPickerX)
 
 <p align="center">
 <img src="art/sample_screen.png">
