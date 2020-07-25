@@ -110,7 +110,8 @@ private CityPickerConfig getCityPickerConfig() {
     recentConfig.setTag("最近访问");
     HeadModelConfig hotConfig = new HeadModelConfig("热门城市", listHot, true, "热", 0, 0);
     hotConfig.setTag("热门城市");
-    // 生成配置类
+    // 生成配置类 CityPickerConfig 可点击查看详细备注
+    // 最后参数设置为null  则表示使用自带的数据库列表 否则可在此实现自定义列表数据
     CityPickerConfig cityPickerConfig = new CityPickerConfig(locationConfig, recentConfig, hotConfig, null);
     return cityPickerConfig;
 }
@@ -120,7 +121,8 @@ private CityPickerConfig getCityPickerConfig() {
 #### 如何使用自定义列表
 >默认会读取数据库文件中的城市列表
 如需自定义列表,可使用CityPickerConfig.setListData(List<CityBean> listData)设置数据
-注：如无需使用自定义列表，可直接setListData（null）即可
+>如果不需要自定义列表,则setListData(null)即默认允许使用数据库列表数据
+切换自定义/原始数据需要重新初始化CityPickerConfig
 
 #### 数据初始化建议
 >建议您在设置列表之前(启动APP或获取城市列表后)使用**CityDataInitUtils.initData**进行初始化(识别首字母与排序)

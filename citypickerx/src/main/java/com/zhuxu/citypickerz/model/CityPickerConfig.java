@@ -24,6 +24,12 @@ public class CityPickerConfig implements Serializable {
     public CityPickerConfig() {
     }
 
+    /**
+     * @param locationConfig 定位模块配置
+     * @param recentConfig   最近模块配置
+     * @param hotConfig      热门模块配置
+     * @param listData       列表数据配置
+     */
     public CityPickerConfig(HeadModelConfig locationConfig, HeadModelConfig recentConfig, HeadModelConfig hotConfig, List<CityBean> listData) {
         this.locationConfig = locationConfig;
         this.recentConfig = recentConfig;
