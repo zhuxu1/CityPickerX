@@ -12,7 +12,7 @@
 
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![API](https://img.shields.io/badge/API-16%2B-yellow.svg?style=flat)](https://android-arsenal.com/api?level=23)
-[ ![Download](https://api.bintray.com/packages/zhuxu820/Utils/CityPickerX/images/download.svg?version=0.3.0) ](https://bintray.com/zhuxu820/Utils/CityPickerX/0.3.0/link)
+[ ![Download](https://api.bintray.com/packages/zhuxu820/Utils/CityPickerX/images/download.svg?version=0.3.1) ](https://bintray.com/zhuxu820/Utils/CityPickerX/0.3.1/link)
 
 <br />
 
@@ -47,15 +47,15 @@
 <dependency>
 	<groupId>com.utils.cocoz</groupId>
 	<artifactId>citypickerx</artifactId>
-	<version>0.3.0</version>
+	<version>0.3.1</version>
 	<type>pom</type>
 </dependency>
 ```
 ```
-implementation 'com.utils.cocoz:citypickerx:0.3.0'
+implementation 'com.utils.cocoz:citypickerx:0.3.1'
 ```
 ```
-<dependency org="com.utils.cocoz" name="citypickerx" rev="0.3.0">
+<dependency org="com.utils.cocoz" name="citypickerx" rev="0.3.1">
 	<artifact name="citypickerx" ext="pom"></artifact>
 </dependency>
 ```
