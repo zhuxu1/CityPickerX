@@ -275,6 +275,7 @@ public class CityPickerXFragment extends DialogFragment {
      * 更新列表数据
      *
      * @param _listBeans
+     * @param isALL    是否需要添加头部显示
      */
     public void updateListData(List<CityBean> _listBeans, boolean isALL) {
         if (_listBeans == null || _listBeans.size() == 0) {
@@ -287,13 +288,13 @@ public class CityPickerXFragment extends DialogFragment {
             int _position = layoutManager.findFirstVisibleItemPosition();
             if (_position < 0 || _position >= _listBeans.size()) {
                 Log.e(TAG, "无法检索条目!");
-                return;
-            }
-            if (_listBeans.size() >= _position) {
-                String _index_str = _listBeans.get(_position).getPinyin();
-                mZCitypickerSideindexbar.setLetterChoose(_index_str);
             } else {
-                Log.e(TAG, "无法检索此条目!");
+                if (_listBeans.size() >= _position) {
+                    String _index_str = _listBeans.get(_position).getPinyin();
+                    mZCitypickerSideindexbar.setLetterChoose(_index_str);
+                } else {
+                    Log.e(TAG, "无法检索此条目!");
+                }
             }
         } else {
             beanList = _listBeans;

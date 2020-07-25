@@ -98,9 +98,9 @@ public class SearchView extends BaseSearchView {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (searchListener != null) {
-                    searchListener.result(s.toString());
-                }
+//                if (searchListener != null) {
+//                    searchListener.result(s.toString());
+//                }
                 if (!TextUtils.isEmpty(s.toString())) {
                     btn_clear.setVisibility(VISIBLE);
                     btn_reset.setVisibility(VISIBLE);

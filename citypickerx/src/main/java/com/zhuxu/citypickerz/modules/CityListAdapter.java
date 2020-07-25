@@ -113,12 +113,13 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             HeadModelConfig config = headViewList.get(position);
             AutoLinefeedLayout childLayout = ((HeadViewHolder) holder).childLayout;
             ((HeadViewHolder) holder).tvTitle.setText(config.getTitle());
+            ((HeadViewHolder) holder).spacingView.setVisibility(position == headViewList.size() - 1 ? VISIBLE : View.GONE);
             if (config.getCityBeans() != null && config.getCityBeans().size() > 0) {
                 if (childLayout.getChildCount() != 0) {
                     childLayout.removeAllViews();
                 }
                 for (CityBean cityBean : config.getCityBeans()) {
-                    childLayout.addView(getCustomHeadChildView(config, cityBean));
+                    childLayout.addView(getCustomHeadChildView(config, cityBean, position));
                 }
             }
         } else {
@@ -136,7 +137,7 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    private View getCustomHeadChildView(HeadModelConfig config, final CityBean city) {
+    private View getCustomHeadChildView(HeadModelConfig config, final CityBean city, int position) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_cutom_child, null);
         LinearLayout layoutP = view.findViewById(R.id.item_custom_child_p);
         layoutP.setBackgroundResource(config.getItemBackRes());

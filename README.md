@@ -12,7 +12,7 @@
 
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![API](https://img.shields.io/badge/API-16%2B-yellow.svg?style=flat)](https://android-arsenal.com/api?level=23)
-[ ![Download](https://api.bintray.com/packages/zhuxu820/Utils/CityPickerX/images/download.svg?version=0.4.0) ](https://bintray.com/zhuxu820/Utils/CityPickerX/0.4.0/link)
+[ ![Download](https://api.bintray.com/packages/zhuxu820/Utils/CityPickerX/images/download.svg?version=0.4.2) ](https://bintray.com/zhuxu820/Utils/CityPickerX/0.4.2/link)
 
 <br />
 
@@ -46,15 +46,15 @@
 <dependency>
 	<groupId>com.utils.cocoz</groupId>
 	<artifactId>citypickerx</artifactId>
-	<version>0.4.0</version>
+	<version>0.4.2</version>
 	<type>pom</type>
 </dependency>
 ```
 ```
-implementation 'com.utils.cocoz:citypickerx:0.4.0'
+implementation 'com.utils.cocoz:citypickerx:0.4.2'
 ```
 ```
-<dependency org="com.utils.cocoz" name="citypickerx" rev="0.4.0">
+<dependency org="com.utils.cocoz" name="citypickerx" rev="0.4.2">
 	<artifact name="citypickerx" ext="pom"></artifact>
 </dependency>
 ```
@@ -97,6 +97,8 @@ cityPickerXFragment.setPickerXInterface(new CommonPickerXInterface() {
 通过HeadModelConfig进行头部布局配置
 通过CityPickerXFragment.startShow(FragmentActivity activity, CityPickerConfig cityPickerConfig)应用
 
+>setTag是头部配置非常重要的属性，是您修改更新头部数据重要的依据
+
 ```java
 // 生成头部配置类
 HeadModelConfig locationConfig = new HeadModelConfig("当前定位", listLocation);
@@ -117,18 +119,22 @@ return cityPickerConfig;
 如需自定义列表,可使用CityPickerConfig.setListData(List<CityBean> listData)设置数据
 注：如无需使用自定义列表，可直接setListData（null）即可
 
-**建议您在设置列表之前(启动APP或获取城市列表后)使用CityDataInitUtils.initData进行初始化(识别首字母与排序)**
+#### 数据初始化建议
+>建议您在设置列表之前(启动APP或获取城市列表后)使用CityDataInitUtils.initData进行初始化(识别首字母与排序)
 
 #### 如何更新数据
 >使用以下方法:注意此处的tag与“自定义头部模块”部分的setTag为同一值
+<br/>**如何更新头部数据：**<br/>
 >cityPickerXFragment.updateData(String tag, List<CityBean> _listBeans);
+<br/>**如何更新列表数据：**<br/>
+>cityPickerXFragment.updateListData(List<CityBean> _listBeans, boolean isALL)
 
 #### 更多自定义
 >CityBean与HeadModelConfig均支持自定义未使用拓展字段"tag"，或许您可以用得到
 
 **如果您的需求无法实现或者您有更好的想法，非常欢迎您在issue中与我交流。我认为这是很重要的学习提升的过程**
 
-#### 更新日志
+### 更新日志
 
 ##### 2020-7-25
 * 优化事件接口,统一修改为PickerXInterface
