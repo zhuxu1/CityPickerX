@@ -31,7 +31,6 @@
 #### 未来打算
 * 优化代码结构
 * 优化启动方法
-* 优化头部布局(正在进行，今晚完成)
 * 添加单独设置item icon功能
 * 解决BUG
 
@@ -119,10 +118,10 @@ private CityPickerConfig getCityPickerConfig() {
 <br/>
 
 #### 如何使用自定义列表
->默认会读取数据库文件中的城市列表
-如需自定义列表,可使用CityPickerConfig.setListData(List<CityBean> listData)设置数据
->如果不需要自定义列表,则setListData(null)即默认允许使用数据库列表数据
-切换自定义/原始数据需要重新初始化CityPickerConfig
+>默认会读取数据库文件中的城市列表<br/>
+如需自定义列表,可使用CityPickerConfig.setListData(List<CityBean> listData)设置数据<br/>
+>如果不需要自定义列表,则setListData(null)即默认允许使用数据库列表数据<br/>
+切换自定义/原始数据需要重新初始化CityPickerConfig<br/>
 
 #### 数据初始化建议
 >建议您在设置列表之前(启动APP或获取城市列表后)使用**CityDataInitUtils.initData**进行初始化(识别首字母与排序)
