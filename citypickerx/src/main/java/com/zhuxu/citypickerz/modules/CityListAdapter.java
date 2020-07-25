@@ -13,6 +13,7 @@ import com.zhuxu.citypickerz.R;
 import com.zhuxu.citypickerz.interfaces.CommonCityInterface;
 import com.zhuxu.citypickerz.model.CityBean;
 import com.zhuxu.citypickerz.model.HeadPlaceBean;
+import com.zhuxu.citypickerz.views.CustomHeadViews;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,10 +44,37 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.mLayoutManager = _mLayoutManager;
     }
 
+    public void setmList(List<CityBean> mList) {
+        this.mList = mList;
+        if (mList == null || mList.size() == 0) {
+            return;
+        } else {
+            if (!mList.get(0).getType().equals(TYPE_STR_HEAD)) {
+                mList.add(0, new HeadPlaceBean());
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public List<CityBean> getmList() {
+        return mList;
+    }
+
     public void addHeadViews(List<View> _headViewList) {
         headViewList = _headViewList;
-        if (mList != null && mList.size() > 0 && !TextUtils.equals(mList.get(0).getType(), TYPE_STR_HEAD)) {
-            mList.add(0, new HeadPlaceBean());
+        if (mList != null && mList.size() > 0) {
+            int maxIndex = mList.size() > 3 ? (mList.size() - 1) : (mList.size());
+            for (; maxIndex >= 0; maxIndex--) {
+                CityBean cityBean = mList.get(maxIndex);
+                if (TextUtils.equals(cityBean.getType(), TYPE_STR_HEAD)) {
+                    mList.remove(cityBean);
+                }
+            }
+            for (int index = _headViewList.size() - 1; index >= 0; index--) {
+                String pinyin = ((CustomHeadViews) _headViewList.get(index)).getConfig().getTitle();
+                Log.e("zhuxu", "addHeadViews " + pinyin);
+                mList.add(0, new HeadPlaceBean(pinyin));
+            }
         }
         notifyDataSetChanged();
     }
@@ -63,7 +91,7 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0 && TextUtils.equals(mList.get(position).getType(), TYPE_STR_HEAD)) {
+        if (TextUtils.equals(mList.get(position).getType(), TYPE_STR_HEAD)) {
             return VIEWTYPE_HEAD;
         } else {
             return VIEWTYPE_LIST;
@@ -78,11 +106,16 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 if (layout.getChildCount() != 0) {
                     layout.removeAllViews();
                 }
-                for (View view : headViewList) {
-                    layout.addView(view);
+//                for (View view : headViewList) {
+//                    layout.addView(view);
+//                }
+                if (position >= headViewList.size() - 1) {
+                    ((HeadViewHolder) holder).spacing.setVisibility(View.VISIBLE);
+                } else {
+                    ((HeadViewHolder) holder).spacing.setVisibility(View.GONE);
                 }
+                layout.addView(headViewList.get(position));
             }
-
         } else {
             String text = mList.get(position).getName();
             final CityBean cityBean = mList.get(position);
@@ -90,7 +123,7 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             ((ListViewHolder) holder).mTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (clickInterface != null){
+                    if (clickInterface != null) {
                         clickInterface.cityResult(cityBean);
                     }
                 }
@@ -152,10 +185,12 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     class HeadViewHolder extends RecyclerView.ViewHolder {
         LinearLayout layoutPP;
+        View spacing;
 
         public HeadViewHolder(View itemView) {
             super(itemView);
             layoutPP = itemView.findViewById(R.id.act_head_view_p_p);
+            spacing = itemView.findViewById(R.id.act_head_view_p_p_spacing);
         }
     }
 
@@ -194,7 +229,8 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     CommonCityInterface clickInterface;
-    public void setClickListener(CommonCityInterface clickListener){
+
+    public void setClickListener(CommonCityInterface clickListener) {
         clickInterface = clickListener;
     }
 }

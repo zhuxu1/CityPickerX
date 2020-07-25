@@ -12,7 +12,7 @@
 
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![API](https://img.shields.io/badge/API-16%2B-yellow.svg?style=flat)](https://android-arsenal.com/api?level=23)
-[ ![Download](https://api.bintray.com/packages/zhuxu820/Utils/CityPickerX/images/download.svg?version=0.3.4) ](https://bintray.com/zhuxu820/Utils/CityPickerX/0.3.4/link)
+[ ![Download](https://api.bintray.com/packages/zhuxu820/Utils/CityPickerX/images/download.svg?version=0.4.0) ](https://bintray.com/zhuxu820/Utils/CityPickerX/0.4.0/link)
 
 <br />
 
@@ -32,7 +32,7 @@
 #### 未来打算
 * 优化代码结构
 * 优化启动方法
-* 优化头部布局
+* 优化头部布局(已完成)
 * 添加单独设置item icon功能
 * 解决BUG
 
@@ -42,29 +42,20 @@
 <img src="art/sample_screen.png">
 </p>
 
-#### 更新日志
-
-##### 2020-7-25 11:15:20
-* 优化事件接口,统一修改为PickerXInterface
-* 新增onReset事件
-* 修复几个BUG
-* 分割sample与lib包
-
-
 #### 如何使用
 ```
 <dependency>
 	<groupId>com.utils.cocoz</groupId>
 	<artifactId>citypickerx</artifactId>
-	<version>0.3.4</version>
+	<version>0.4.0</version>
 	<type>pom</type>
 </dependency>
 ```
 ```
-implementation 'com.utils.cocoz:citypickerx:0.3.4'
+implementation 'com.utils.cocoz:citypickerx:0.4.0'
 ```
 ```
-<dependency org="com.utils.cocoz" name="citypickerx" rev="0.3.4">
+<dependency org="com.utils.cocoz" name="citypickerx" rev="0.4.0">
 	<artifact name="citypickerx" ext="pom"></artifact>
 </dependency>
 ```
@@ -137,6 +128,17 @@ return cityPickerConfig;
 >CityBean与HeadModelConfig均支持自定义未使用拓展字段"tag"，或许您可以用得到
 
 **如果您的需求无法实现或者您有更好的想法，非常欢迎您在issue中与我交流。我认为这是很重要的学习提升的过程**
+
+#### 更新日志
+
+##### 2020-7-25
+* 优化事件接口,统一修改为PickerXInterface
+* 新增onReset事件
+* 分割sample与lib包
+* 新增列表刷新方法
+* 修复列表数据更新BUG
+* 修复列表与侧导航栏字母不匹配的BUG
+* 新增头部与侧导航栏关联
 
 <br/>
 <br/>

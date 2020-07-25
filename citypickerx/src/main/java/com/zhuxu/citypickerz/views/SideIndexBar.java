@@ -76,7 +76,7 @@ public class SideIndexBar extends View {
     String letterChoosed = "";
 
     public void setLetterChoose(String letterChoose) {
-        letterChoosed = letterChoose;
+        letterChoosed = CityPickerXUtils.getSideIndexStr(letterChoose);
         if (hasDraw) {
             invalidate();
         }

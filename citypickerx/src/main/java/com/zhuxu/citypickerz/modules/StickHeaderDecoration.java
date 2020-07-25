@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.View;
 
 import com.zhuxu.citypickerz.R;
@@ -48,7 +49,8 @@ public class StickHeaderDecoration extends RecyclerView.ItemDecoration {
         mItemHeaderTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mItemHeaderTextPaint.setTextSize(46);
         mItemHeaderTextPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mItemHeaderTextPaint.setColor(Color.BLACK);
+//        mItemHeaderTextPaint.setColor(Color.BLACK);
+        mItemHeaderTextPaint.setColor(context.getColor(R.color.z_color_black_txt));
 
         mLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 //        mLinePaint.setColor(Color.GRAY);
@@ -107,6 +109,10 @@ public class StickHeaderDecoration extends RecyclerView.ItemDecoration {
             if (position == 0) {
                 return;
             }
+            if (parent == null || parent.findViewHolderForAdapterPosition(position) == null || parent.findViewHolderForAdapterPosition(position).itemView == null) {
+                Log.e("zhuxu", "onDrawOver some thing is null");
+                return;
+            }
             View view = parent.findViewHolderForAdapterPosition(position).itemView;
             boolean isHeader = adapter.isItemHeader(position + 1);
             int top = parent.getPaddingTop();
@@ -140,11 +146,12 @@ public class StickHeaderDecoration extends RecyclerView.ItemDecoration {
      * @param state
      */
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State
+            state) {
         if (parent.getAdapter() instanceof CityListAdapter) {
             CityListAdapter adapter = (CityListAdapter) parent.getAdapter();
             int position = parent.getChildLayoutPosition(view);
-            if (adapter.isCutomHead(position)){
+            if (adapter.isCutomHead(position)) {
                 outRect.top = 1;
                 return;
             }

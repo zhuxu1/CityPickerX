@@ -83,7 +83,7 @@ public class CustomHeadViews extends LinearLayout {
         layoutP.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("zhuxu", "city bean is " + city.toString());
+//                Log.e("zhuxu", "city bean is " + city.toString());
                 if (clickInterface != null) {
                     clickInterface.cityResult(city);
                 }

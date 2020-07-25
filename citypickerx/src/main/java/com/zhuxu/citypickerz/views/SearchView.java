@@ -5,8 +5,10 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -68,6 +70,9 @@ public class SearchView extends BaseSearchView {
             @Override
             public void onClick(View v) {
                 edt_search.setText("");
+                if (searchListener != null) {
+                    searchListener.result("");
+                }
             }
         });
         btn_reset.setOnClickListener(new OnClickListener() {
@@ -93,16 +98,32 @@ public class SearchView extends BaseSearchView {
 
             @Override
             public void afterTextChanged(Editable s) {
+                if (searchListener != null) {
+                    searchListener.result(s.toString());
+                }
                 if (!TextUtils.isEmpty(s.toString())) {
                     btn_clear.setVisibility(VISIBLE);
                     btn_reset.setVisibility(VISIBLE);
-                    if (searchListener != null) {
-                        searchListener.result(s.toString());
-                    }
                 } else {
                     btn_clear.setVisibility(GONE);
                     btn_reset.setVisibility(GONE);
                 }
+            }
+        });
+        edt_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    //点击搜索的时候隐藏软键盘
+                    CityPickerXUtils.hideKeyboard(edt_search);
+                    // 在这里写搜索的操作,一般都是网络请求数据
+                    if (searchListener != null) {
+                        searchListener.result(edt_search.getText().toString());
+                    }
+                    return true;
+                }
+
+                return false;
             }
         });
     }

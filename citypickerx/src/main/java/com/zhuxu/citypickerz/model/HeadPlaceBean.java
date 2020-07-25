@@ -9,4 +9,8 @@ public class HeadPlaceBean extends CityBean {
     public HeadPlaceBean() {
         super("", "", "", "", TYPE_STR_HEAD);
     }
+
+    public HeadPlaceBean(String pinyin) {
+        super("", "", "", pinyin, TYPE_STR_HEAD);
+    }
 }

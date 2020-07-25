@@ -13,7 +13,9 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/act_head_view_p_p_spacing"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="@color/z_color_spacing" />
+        android:background="@color/z_color_spacing"
+        android:visibility="gone" />
 </LinearLayout>

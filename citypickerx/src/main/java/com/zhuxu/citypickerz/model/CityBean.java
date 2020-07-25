@@ -74,7 +74,7 @@ public class CityBean implements Serializable {
     }
 
     public String getPinyin() {
-        if (!TextUtils.isEmpty(name) && TextUtils.isEmpty(pinyin)) {
+        if (!TextUtils.isEmpty(getName()) && TextUtils.isEmpty(pinyin)) {
             // 自动获取首字母
             setPinyin(Pinyin.toPinyin(getName().charAt(0)));
         }

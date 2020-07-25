@@ -59,6 +59,7 @@ public class CityPickerXFragment extends DialogFragment {
     private RecyclerView mZCitypickerRecycleview;
     private SideIndexBar mZCitypickerSideindexbar;
     private TextView mCenterIndexHint;
+    private TextView tvEmpty;
 
     public static CityPickerXFragment newInstance(CityPickerConfig config) {
         final CityPickerXFragment fragment = new CityPickerXFragment();
@@ -139,6 +140,7 @@ public class CityPickerXFragment extends DialogFragment {
         mZCitypickerRecycleview = getView().findViewById(R.id.z_citypicker_scrollview_recycleview);
         mZCitypickerSideindexbar = getView().findViewById(R.id.z_citypicker_sideindexbar);
         mCenterIndexHint = getView().findViewById(R.id.layout_citylist_index_hint);
+        tvEmpty = getView().findViewById(R.id.z_citypicker_scrollview_recycleview_empty);
     }
 
     private void initSearchView() {
@@ -174,7 +176,6 @@ public class CityPickerXFragment extends DialogFragment {
                 mCenterIndexHint.setText(letter);
                 if (sideIndexList.size() > 0) {
                     for (String s : sideIndexList) {
-                        Log.e(TAG, letter + " : " + s);
                         if (TextUtils.equals(letter, CityPickerXUtils.getSideIndexStr(s))) {
                             mAdapter.scrollToSectionHead();
                             return;
@@ -191,8 +192,10 @@ public class CityPickerXFragment extends DialogFragment {
         });
     }
 
+    LinearLayoutManager layoutManager;
+
     private void initRl() {
-        final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mAdapter = new CityListAdapter(getActivity(), beanList, layoutManager);
         mZCitypickerRecycleview.addItemDecoration(new StickHeaderDecoration(getActivity(), 2));
         mZCitypickerRecycleview.setLayoutManager(layoutManager);
@@ -201,8 +204,16 @@ public class CityPickerXFragment extends DialogFragment {
             @Override
             public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 int _position = layoutManager.findFirstVisibleItemPosition();
-                if (beanList.size() >= _position) {
-                    String _index_str = beanList.get(_position).getPinyin();
+                List<CityBean> _beanList = mAdapter.getmList();
+                if (_position < 0 || _position >= _beanList.size()) {
+                    Log.e(TAG, "无法检索条目!");
+                    return;
+                }
+                if (_beanList.size() >= _position) {
+                    String _index_str = _beanList.get(_position).getPinyin();
+                    String _name_str = _beanList.get(_position).getName();
+//                    Log.e("zhuxu", "bean : " + _beanList.get(_position).toString());
+//                    Log.e("zhuxu", "_position : " + _position + " , _index_str : " + _index_str + " , _name_str : " + _name_str);
                     mZCitypickerSideindexbar.setLetterChoose(_index_str);
                 } else {
                     Log.e(TAG, "无法检索此条目!");
@@ -217,6 +228,7 @@ public class CityPickerXFragment extends DialogFragment {
                 }
             }
         });
+        tvEmpty.setVisibility(View.GONE);
     }
 
     // 侧边导航栏新增部分内容
@@ -273,6 +285,37 @@ public class CityPickerXFragment extends DialogFragment {
         } else {
             Log.e(TAG, "错误的调用，请检查你是否已经添加了头部view!");
         }
+    }
+
+    /**
+     * 更新列表数据
+     *
+     * @param _listBeans
+     */
+    public void updateListData(List<CityBean> _listBeans) {
+        if (_listBeans == null || _listBeans.size() == 0) {
+            tvEmpty.setVisibility(View.VISIBLE);
+        } else {
+            tvEmpty.setVisibility(View.GONE);
+        }
+        if (mAdapter != null) {
+            mAdapter.setmList(_listBeans);
+            int _position = layoutManager.findFirstVisibleItemPosition();
+            if (_position < 0 || _position >= _listBeans.size()) {
+                Log.e(TAG, "无法检索条目!");
+                return;
+            }
+            if (_listBeans.size() >= _position) {
+                String _index_str = _listBeans.get(_position).getPinyin();
+                mZCitypickerSideindexbar.setLetterChoose(_index_str);
+            } else {
+                Log.e(TAG, "无法检索此条目!");
+            }
+        } else {
+            beanList = _listBeans;
+        }
+        mAdapter.scrollToSection("A");
+//        mZCitypickerSideindexbar.setLetterChoose("A");
     }
 
     CommonPickerXInterface pickerXInterface;

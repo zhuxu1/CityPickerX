@@ -2,9 +2,11 @@ package com.zhuxu.citypickerxsample;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
+import com.zhuxu.citypickerz.db.DBManager;
 import com.zhuxu.citypickerz.interfaces.CommonCityInterface;
 import com.zhuxu.citypickerz.interfaces.CommonPickerXInterface;
 import com.zhuxu.citypickerz.interfaces.CommonStringInterface;
@@ -22,10 +24,17 @@ public class MainActivity extends AppCompatActivity {
 
     CityPickerXFragment cityPickerXFragment;
 
+    private DBManager dbManager;
+
+    private static String STR_TITLE_HEAD_LOCATION = "定位信息";
+    private static String STR_TITLE_HEAD_RECENT = "历史信息";
+    private static String STR_TITLE_HEAD_HOT = "热门信息";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        dbManager = new DBManager(MainActivity.this);
         findViewById(com.zhuxu.citypickerz.R.id.jump_btn).setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -45,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
                         listHot.add(new CityBean("北京n", "山东", "0546", "热门", CityBean.TYPE_STR_LIST));
                         listHot.add(new CityBean("深圳n", "山东", "0546", "热门", CityBean.TYPE_STR_LIST));
 
-                        cityPickerXFragment.updateData("最近访问", listRecent);
-                        cityPickerXFragment.updateData("当前定位", listLocation);
-                        cityPickerXFragment.updateData("热门城市", listHot);
+                        cityPickerXFragment.updateData(STR_TITLE_HEAD_RECENT, listRecent);
+                        cityPickerXFragment.updateData(STR_TITLE_HEAD_LOCATION, listLocation);
+                        cityPickerXFragment.updateData(STR_TITLE_HEAD_HOT, listHot);
 
                         Toast.makeText(getApplicationContext(), "10秒后数据自动变化", Toast.LENGTH_SHORT).show();
                     }
@@ -76,12 +85,21 @@ public class MainActivity extends AppCompatActivity {
                     public void onSearch(String s) {
                         // 在此实现你的搜索逻辑
                         Toast.makeText(getApplicationContext(), "you search " + s, Toast.LENGTH_SHORT).show();
+                        if (TextUtils.isEmpty(s)) {
+                            List<CityBean> beanList = dbManager.getAllCities();
+                            cityPickerXFragment.updateListData(beanList);
+                        } else {
+                            List<CityBean> beanList = dbManager.searchCity(s);
+                            cityPickerXFragment.updateListData(beanList);
+                        }
                     }
 
                     @Override
                     public void onReset() {
                         // 在此实现reset触发逻辑
                         Toast.makeText(getApplicationContext(), "reset", Toast.LENGTH_SHORT).show();
+                        List<CityBean> beanList = dbManager.getAllCities();
+                        cityPickerXFragment.updateListData(beanList);
                     }
                 });
             }
@@ -109,12 +127,12 @@ public class MainActivity extends AppCompatActivity {
         listHot.add(new CityBean("天津", "山东", "0546", "热门", CityBean.TYPE_STR_LIST));
         listHot.add(new CityBean("大连", "山东", "0546", "热门", CityBean.TYPE_STR_LIST));
 
-        HeadModelConfig locationConfig = new HeadModelConfig("当前定位", listLocation);
-        locationConfig.setTag("当前定位");
-        HeadModelConfig recentConfig = new HeadModelConfig("最近访问", listRecent, true, "近", 0, 0);
-        recentConfig.setTag("最近访问");
-        HeadModelConfig hotConfig = new HeadModelConfig("热门城市", listHot, true, "热", 0, 0);
-        hotConfig.setTag("热门城市");
+        HeadModelConfig locationConfig = new HeadModelConfig(STR_TITLE_HEAD_LOCATION, listLocation);
+        locationConfig.setTag(STR_TITLE_HEAD_LOCATION);
+        HeadModelConfig recentConfig = new HeadModelConfig(STR_TITLE_HEAD_RECENT, listRecent, true, "近", 0, 0);
+        recentConfig.setTag(STR_TITLE_HEAD_RECENT);
+        HeadModelConfig hotConfig = new HeadModelConfig(STR_TITLE_HEAD_HOT, listHot, true, "热", 0, 0);
+        hotConfig.setTag(STR_TITLE_HEAD_HOT);
         CityPickerConfig cityPickerConfig = new CityPickerConfig(locationConfig, recentConfig, hotConfig, null);
         return cityPickerConfig;
     }

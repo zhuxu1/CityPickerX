@@ -45,6 +45,7 @@
             android:background="@drawable/shape_edt"
             android:gravity="center_vertical|left"
             android:hint="请输入名称或首字母查询"
+            android:imeOptions="actionSearch"
             android:maxLength="20"
             android:maxLines="1"
             android:singleLine="true"

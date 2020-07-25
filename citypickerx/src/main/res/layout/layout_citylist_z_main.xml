@@ -22,11 +22,29 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/z_citypicker_scrollview_recycleview"
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/z_citypicker_scrollview_recycleview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/z_citypicker_scrollview_recycleview_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/white"
+                    android:gravity="center"
+                    android:text="没有搜索到数据"
+                    android:textColor="@color/z_color_black_easy"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
 
             <com.zhuxu.citypickerz.views.SideIndexBar
                 android:id="@+id/z_citypicker_sideindexbar"
