@@ -87,10 +87,10 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "you search " + s, Toast.LENGTH_SHORT).show();
                         if (TextUtils.isEmpty(s)) {
                             List<CityBean> beanList = dbManager.getAllCities();
-                            cityPickerXFragment.updateListData(beanList);
+                            cityPickerXFragment.updateListData(beanList, true);
                         } else {
                             List<CityBean> beanList = dbManager.searchCity(s);
-                            cityPickerXFragment.updateListData(beanList);
+                            cityPickerXFragment.updateListData(beanList, false);
                         }
                     }
 
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                         // 在此实现reset触发逻辑
                         Toast.makeText(getApplicationContext(), "reset", Toast.LENGTH_SHORT).show();
                         List<CityBean> beanList = dbManager.getAllCities();
-                        cityPickerXFragment.updateListData(beanList);
+                        cityPickerXFragment.updateListData(beanList, true);
                     }
                 });
             }

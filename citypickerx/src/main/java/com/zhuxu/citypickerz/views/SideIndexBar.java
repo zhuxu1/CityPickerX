@@ -102,6 +102,10 @@ public class SideIndexBar extends View {
         }
     }
 
+    public String[] getmLetters() {
+        return mLetters;
+    }
+
     public void setLetters(List<String> letters) {
         if (letters != null && !letters.isEmpty()) {
             mLetters = new String[letters.size()];

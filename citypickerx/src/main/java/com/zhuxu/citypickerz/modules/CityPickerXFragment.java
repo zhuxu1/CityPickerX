@@ -233,7 +233,7 @@ public class CityPickerXFragment extends DialogFragment {
 
     // 侧边导航栏新增部分内容
     List<String> sideIndexList = new ArrayList<>();
-    List<View> headViews = new ArrayList<>();
+    List<HeadModelConfig> headViews = new ArrayList<>();
 
     private void initHeadViews() {
         if (cityPickerConfig == null) {
@@ -242,43 +242,27 @@ public class CityPickerXFragment extends DialogFragment {
         headViews = new ArrayList<>();
         sideIndexList = new ArrayList<>();
         if (cityPickerConfig.getLocationConfig() != null && cityPickerConfig.getLocationConfig().isEnabled()) {
-            headViews.add(getCustomModelItem(cityPickerConfig.getLocationConfig()));
+            headViews.add(cityPickerConfig.getLocationConfig());
             sideIndexList.add(cityPickerConfig.getLocationConfig().getTitle());
         }
         if (cityPickerConfig.getRecentConfig() != null && cityPickerConfig.getRecentConfig().isEnabled()) {
-            headViews.add(getCustomModelItem(cityPickerConfig.getRecentConfig()));
+            headViews.add(cityPickerConfig.getRecentConfig());
             sideIndexList.add(cityPickerConfig.getRecentConfig().getTitle());
         }
         if (cityPickerConfig.getHotConfig() != null && cityPickerConfig.getHotConfig().isEnabled()) {
-            headViews.add(getCustomModelItem(cityPickerConfig.getHotConfig()));
+            headViews.add(cityPickerConfig.getHotConfig());
             sideIndexList.add(cityPickerConfig.getHotConfig().getTitle());
         }
         mAdapter.addHeadViews(headViews);
         mZCitypickerSideindexbar.addLetters(sideIndexList);
     }
 
-    private View getCustomModelItem(HeadModelConfig headModelConfig) {
-        CustomHeadViews customHeadViews = new CustomHeadViews(getContext());
-        customHeadViews.setConfig(headModelConfig);
-        customHeadViews.setClickListener(new CommonCityInterface() {
-            @Override
-            public void cityResult(CityBean cityBean) {
-                if (pickerXInterface != null) {
-                    pickerXInterface.onClick(cityBean);
-                }
-            }
-        });
-        return customHeadViews;
-    }
-
     public void updateData(String tag, List<CityBean> _listBeans) {
         if (headViews != null && headViews.size() != 0) {
-            for (View view : headViews) {
-                CustomHeadViews customHeadViews = (CustomHeadViews) view;
-                HeadModelConfig _config = customHeadViews.getConfig();
+            for (HeadModelConfig _config : headViews) {
                 if (TextUtils.equals(_config.getTag(), tag)) {
                     _config.setCityBeans(_listBeans);
-                    customHeadViews.setConfig(_config);
+                    mAdapter.addHeadViews(headViews);
                     return;
                 }
             }
@@ -292,7 +276,7 @@ public class CityPickerXFragment extends DialogFragment {
      *
      * @param _listBeans
      */
-    public void updateListData(List<CityBean> _listBeans) {
+    public void updateListData(List<CityBean> _listBeans, boolean isALL) {
         if (_listBeans == null || _listBeans.size() == 0) {
             tvEmpty.setVisibility(View.VISIBLE);
         } else {
@@ -314,7 +298,10 @@ public class CityPickerXFragment extends DialogFragment {
         } else {
             beanList = _listBeans;
         }
-        mAdapter.scrollToSection("A");
+        if (isALL) {
+            mAdapter.addHeadViews(headViews);
+        }
+        mAdapter.scrollToSection(mZCitypickerSideindexbar.getmLetters()[0]);
 //        mZCitypickerSideindexbar.setLetterChoose("A");
     }
 

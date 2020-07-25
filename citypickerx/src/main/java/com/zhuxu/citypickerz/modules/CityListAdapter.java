@@ -2,7 +2,6 @@ package com.zhuxu.citypickerz.modules;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,9 @@ import android.widget.TextView;
 import com.zhuxu.citypickerz.R;
 import com.zhuxu.citypickerz.interfaces.CommonCityInterface;
 import com.zhuxu.citypickerz.model.CityBean;
+import com.zhuxu.citypickerz.model.HeadModelConfig;
 import com.zhuxu.citypickerz.model.HeadPlaceBean;
-import com.zhuxu.citypickerz.views.CustomHeadViews;
+import com.zhuxu.citypickerz.views.AutoLinefeedLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,7 @@ import java.util.List;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static android.view.View.VISIBLE;
 import static com.zhuxu.citypickerz.model.CityBean.TYPE_STR_HEAD;
 
 /**
@@ -36,7 +37,7 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private Context mContext;
     private List<CityBean> mList;
     private LinearLayoutManager mLayoutManager;
-    private List<View> headViewList = new ArrayList<>();
+    private List<HeadModelConfig> headViewList = new ArrayList<>();
 
     public CityListAdapter(Context context, List<CityBean> list, LinearLayoutManager _mLayoutManager) {
         this.mContext = context;
@@ -49,9 +50,13 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (mList == null || mList.size() == 0) {
             return;
         } else {
-            if (!mList.get(0).getType().equals(TYPE_STR_HEAD)) {
-                mList.add(0, new HeadPlaceBean());
-            }
+//            if (!mList.get(0).getType().equals(TYPE_STR_HEAD)) {
+//                for (int index = headViewList.size() - 1; index >= 0; index--) {
+//                    String pinyin = ((CustomHeadViews) headViewList.get(index)).getConfig().getTitle();
+//                    Log.e("zhuxu", "addHeadViews " + pinyin);
+//                    mList.add(0, new HeadPlaceBean(pinyin));
+//                }
+//            }
         }
         notifyDataSetChanged();
     }
@@ -60,7 +65,13 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return mList;
     }
 
-    public void addHeadViews(List<View> _headViewList) {
+    public void addHeadViews(List<HeadModelConfig> _headViewList) {
+        if (_headViewList == null) {
+            return;
+        }
+//        if (mList.get(0).getType().equals(TYPE_STR_HEAD)) {
+//            return;
+//        }
         headViewList = _headViewList;
         if (mList != null && mList.size() > 0) {
             int maxIndex = mList.size() > 3 ? (mList.size() - 1) : (mList.size());
@@ -71,9 +82,7 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
             }
             for (int index = _headViewList.size() - 1; index >= 0; index--) {
-                String pinyin = ((CustomHeadViews) _headViewList.get(index)).getConfig().getTitle();
-                Log.e("zhuxu", "addHeadViews " + pinyin);
-                mList.add(0, new HeadPlaceBean(pinyin));
+                mList.add(0, new HeadPlaceBean(_headViewList.get(index).getTitle()));
             }
         }
         notifyDataSetChanged();
@@ -83,7 +92,7 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case VIEWTYPE_HEAD:
-                return new HeadViewHolder(LayoutInflater.from(mContext).inflate(R.layout.act_head_view_p, parent, false));
+                return new HeadViewHolder(LayoutInflater.from(mContext).inflate(R.layout.act_custom_head_view, parent, false));
             default:
                 return new ListViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_recyclerview_text, parent, false));
         }
@@ -101,20 +110,16 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof HeadViewHolder) {
-            LinearLayout layout = ((HeadViewHolder) holder).layoutPP;
-            if (headViewList != null && headViewList.size() > 0) {
-                if (layout.getChildCount() != 0) {
-                    layout.removeAllViews();
+            HeadModelConfig config = headViewList.get(position);
+            AutoLinefeedLayout childLayout = ((HeadViewHolder) holder).childLayout;
+            ((HeadViewHolder) holder).tvTitle.setText(config.getTitle());
+            if (config.getCityBeans() != null && config.getCityBeans().size() > 0) {
+                if (childLayout.getChildCount() != 0) {
+                    childLayout.removeAllViews();
                 }
-//                for (View view : headViewList) {
-//                    layout.addView(view);
-//                }
-                if (position >= headViewList.size() - 1) {
-                    ((HeadViewHolder) holder).spacing.setVisibility(View.VISIBLE);
-                } else {
-                    ((HeadViewHolder) holder).spacing.setVisibility(View.GONE);
+                for (CityBean cityBean : config.getCityBeans()) {
+                    childLayout.addView(getCustomHeadChildView(config, cityBean));
                 }
-                layout.addView(headViewList.get(position));
             }
         } else {
             String text = mList.get(position).getName();
@@ -129,6 +134,31 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
             });
         }
+    }
+
+    private View getCustomHeadChildView(HeadModelConfig config, final CityBean city) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_cutom_child, null);
+        LinearLayout layoutP = view.findViewById(R.id.item_custom_child_p);
+        layoutP.setBackgroundResource(config.getItemBackRes());
+        layoutP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Log.e("zhuxu", "city bean is " + city.toString());
+                if (clickInterface != null) {
+                    clickInterface.cityResult(city);
+                }
+            }
+        });
+        if (config.isNeedIcon()) {
+            TextView childIconTv = view.findViewById(R.id.item_custom_child_icon);
+            childIconTv.setVisibility(VISIBLE);
+            childIconTv.setText(config.getStrIconTitle());
+            childIconTv.setBackgroundResource(config.getIconBackRes());
+        }
+
+        TextView childTv = view.findViewById(R.id.item_custom_child_tv);
+        childTv.setText(city.getName());
+        return view;
     }
 
     @Override
@@ -184,13 +214,17 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     class HeadViewHolder extends RecyclerView.ViewHolder {
-        LinearLayout layoutPP;
-        View spacing;
+        LinearLayout parentRoot;
+        TextView tvTitle;
+        AutoLinefeedLayout childLayout;
+        View spacingView;
 
         public HeadViewHolder(View itemView) {
             super(itemView);
-            layoutPP = itemView.findViewById(R.id.act_head_view_p_p);
-            spacing = itemView.findViewById(R.id.act_head_view_p_p_spacing);
+            parentRoot = itemView.findViewById(R.id.act_custom_head_view_p);
+            tvTitle = itemView.findViewById(R.id.act_custom_head_view_title);
+            childLayout = itemView.findViewById(R.id.act_custom_head_view_childlayout);
+            spacingView = itemView.findViewById(R.id.act_head_view_p_p_spacing);
         }
     }
 
