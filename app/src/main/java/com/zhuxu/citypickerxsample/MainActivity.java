@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.zhuxu.citypickerz.interfaces.CommonCityInterface;
+import com.zhuxu.citypickerz.interfaces.CommonPickerXInterface;
 import com.zhuxu.citypickerz.interfaces.CommonStringInterface;
 import com.zhuxu.citypickerz.model.CityBean;
 import com.zhuxu.citypickerz.model.CityPickerConfig;
@@ -58,18 +59,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cityPickerXFragment = CityPickerXFragment.startShow(MainActivity.this, getCityPickerConfig());
-                cityPickerXFragment.setPickerClickListener(new CommonCityInterface() {
+                cityPickerXFragment.setPickerXInterface(new CommonPickerXInterface() {
                     @Override
-                    public void cityResult(CityBean cityBean) {
+                    public void onClick(CityBean cityBean) {
                         // 在此实现你的点击逻辑
                         Toast.makeText(getApplicationContext(), "you clicked " + cityBean.getName() + " , this is a " + cityBean.getType(), Toast.LENGTH_SHORT).show();
                     }
-                });
-                cityPickerXFragment.setSearchInterface(new CommonStringInterface() {
+
                     @Override
-                    public void result(String result) {
+                    public void onDismiss() {
+                        // 在此实现dismiss触发逻辑
+                        Toast.makeText(getApplicationContext(), "dismiss", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onSearch(String s) {
                         // 在此实现你的搜索逻辑
-                        Toast.makeText(getApplicationContext(), "you search " + result, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "you search " + s, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onReset() {
+                        // 在此实现reset触发逻辑
+                        Toast.makeText(getApplicationContext(), "reset", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

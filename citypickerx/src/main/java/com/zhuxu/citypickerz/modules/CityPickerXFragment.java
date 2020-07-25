@@ -13,6 +13,7 @@ import com.zhuxu.citypickerz.R;
 import com.zhuxu.citypickerz.db.DBManager;
 import com.zhuxu.citypickerz.interfaces.CommonBoolInterface;
 import com.zhuxu.citypickerz.interfaces.CommonCityInterface;
+import com.zhuxu.citypickerz.interfaces.CommonPickerXInterface;
 import com.zhuxu.citypickerz.interfaces.CommonStringInterface;
 import com.zhuxu.citypickerz.model.CityBean;
 import com.zhuxu.citypickerz.model.CityPickerConfig;
@@ -103,6 +104,9 @@ public class CityPickerXFragment extends DialogFragment {
         } else {
             CityPickerXUtils.showToast(getActivity(), STR_CONFIG_HINT_ERROR);
             Log.e(TAG, STR_CONFIG_HINT_ERROR);
+            if (pickerXInterface != null) {
+                pickerXInterface.onDismiss();
+            }
             dismiss();
             return;
         }
@@ -141,22 +145,25 @@ public class CityPickerXFragment extends DialogFragment {
         mZCitypickerSearchview.setCloseListener(new CommonBoolInterface() {
             @Override
             public void result(boolean result) {
+                if (pickerXInterface != null) {
+                    pickerXInterface.onDismiss();
+                }
                 dismiss();
             }
         });
         mZCitypickerSearchview.setSearchListener(new CommonStringInterface() {
             @Override
             public void result(String result) {
-                if (searchInterface != null) {
-                    searchInterface.result(result);
+                if (pickerXInterface != null) {
+                    pickerXInterface.onSearch(result);
                 }
             }
         });
         mZCitypickerSearchview.setResetListener(new CommonBoolInterface() {
             @Override
             public void result(boolean result) {
-                if (searchInterface != null) {
-                    searchInterface.result("");
+                if (pickerXInterface != null) {
+                    pickerXInterface.onReset();
                 }
             }
         });
@@ -202,6 +209,14 @@ public class CityPickerXFragment extends DialogFragment {
                 }
             }
         });
+        mAdapter.setClickListener(new CommonCityInterface() {
+            @Override
+            public void cityResult(CityBean cityBean) {
+                if (pickerXInterface != null) {
+                    pickerXInterface.onClick(cityBean);
+                }
+            }
+        });
     }
 
     // 侧边导航栏新增部分内容
@@ -236,8 +251,8 @@ public class CityPickerXFragment extends DialogFragment {
         customHeadViews.setClickListener(new CommonCityInterface() {
             @Override
             public void cityResult(CityBean cityBean) {
-                if (commonCityInterface != null) {
-                    commonCityInterface.cityResult(cityBean);
+                if (pickerXInterface != null) {
+                    pickerXInterface.onClick(cityBean);
                 }
             }
         });
@@ -260,18 +275,9 @@ public class CityPickerXFragment extends DialogFragment {
         }
     }
 
-    CommonCityInterface commonCityInterface;
+    CommonPickerXInterface pickerXInterface;
 
-    public void setPickerClickListener(CommonCityInterface commonCityInterface) {
-        this.commonCityInterface = commonCityInterface;
-        if (mAdapter != null) {
-            mAdapter.setClickListener(commonCityInterface);
-        }
-    }
-
-    CommonStringInterface searchInterface;
-
-    public void setSearchInterface(CommonStringInterface commonStringInterface) {
-        this.searchInterface = commonStringInterface;
+    public void setPickerXInterface(CommonPickerXInterface commonPickerXInterface) {
+        pickerXInterface = commonPickerXInterface;
     }
 }

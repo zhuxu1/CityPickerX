@@ -12,7 +12,7 @@
 
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![API](https://img.shields.io/badge/API-16%2B-yellow.svg?style=flat)](https://android-arsenal.com/api?level=23)
-[ ![Download](https://api.bintray.com/packages/zhuxu820/Utils/CityPickerX/images/download.svg?version=0.3.1) ](https://bintray.com/zhuxu820/Utils/CityPickerX/0.3.1/link)
+[ ![Download](https://api.bintray.com/packages/zhuxu820/Utils/CityPickerX/images/download.svg?version=0.3.4) ](https://bintray.com/zhuxu820/Utils/CityPickerX/0.3.4/link)
 
 <br />
 
@@ -42,20 +42,29 @@
 <img src="art/sample_screen.png">
 </p>
 
+#### 更新日志
+
+##### 2020-7-25 11:15:20
+* 优化事件接口,统一修改为PickerXInterface
+* 新增onReset事件
+* 修复几个BUG
+* 分割sample与lib包
+
+
 #### 如何使用
 ```
 <dependency>
 	<groupId>com.utils.cocoz</groupId>
 	<artifactId>citypickerx</artifactId>
-	<version>0.3.1</version>
+	<version>0.3.4</version>
 	<type>pom</type>
 </dependency>
 ```
 ```
-implementation 'com.utils.cocoz:citypickerx:0.3.1'
+implementation 'com.utils.cocoz:citypickerx:0.3.4'
 ```
 ```
-<dependency org="com.utils.cocoz" name="citypickerx" rev="0.3.1">
+<dependency org="com.utils.cocoz" name="citypickerx" rev="0.3.4">
 	<artifact name="citypickerx" ext="pom"></artifact>
 </dependency>
 ```
@@ -64,18 +73,29 @@ implementation 'com.utils.cocoz:citypickerx:0.3.1'
 ##### 如何启动
 ```java
 CityPickerXFragment cityPickerXFragment = CityPickerXFragment.startShow(MainTestActivity.this, getCityPickerConfig());
-// 绑定点击事件
-cityPickerXFragment.setPickerClickListener(new CommonCityInterface() {
+cityPickerXFragment.setPickerXInterface(new CommonPickerXInterface() {
                     @Override
-                    public void cityResult(CityBean cityBean) {
+                    public void onClick(CityBean cityBean) {
                         // 在此实现你的点击逻辑
+                        Toast.makeText(getApplicationContext(), "you clicked " + cityBean.getName() + " , this is a " + cityBean.getType(), Toast.LENGTH_SHORT).show();
                     }
-                });
-// 绑定搜索事件
-cityPickerXFragment.setSearchInterface(new CommonStringInterface() {
+
                     @Override
-                    public void result(String result) {
+                    public void onDismiss() {
+                        // 在此实现dismiss触发逻辑
+                        Toast.makeText(getApplicationContext(), "dismiss", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onSearch(String s) {
                         // 在此实现你的搜索逻辑
+                        Toast.makeText(getApplicationContext(), "you search " + s, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onReset() {
+                        // 在此实现reset触发逻辑
+                        Toast.makeText(getApplicationContext(), "reset", Toast.LENGTH_SHORT).show();
                     }
                 });
 ```
