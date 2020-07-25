@@ -64,30 +64,30 @@ implementation 'com.utils.cocoz:citypickerx:0.4.2'
 ```java
 CityPickerXFragment cityPickerXFragment = CityPickerXFragment.startShow(MainTestActivity.this, getCityPickerConfig());
 cityPickerXFragment.setPickerXInterface(new CommonPickerXInterface() {
-                    @Override
-                    public void onClick(CityBean cityBean) {
-                        // 在此实现你的点击逻辑
-                        Toast.makeText(getApplicationContext(), "you clicked " + cityBean.getName() + " , this is a " + cityBean.getType(), Toast.LENGTH_SHORT).show();
-                    }
+            @Override
+            public void onClick(CityBean cityBean) {
+                // 在此实现你的点击逻辑
+                Toast.makeText(getApplicationContext(), "you clicked " + cityBean.getName() + " , this is a " + cityBean.getType(), Toast.LENGTH_SHORT).show();
+            }
 
-                    @Override
-                    public void onDismiss() {
-                        // 在此实现dismiss触发逻辑
-                        Toast.makeText(getApplicationContext(), "dismiss", Toast.LENGTH_SHORT).show();
-                    }
+            @Override
+            public void onDismiss() {
+                // 在此实现dismiss触发逻辑
+                Toast.makeText(getApplicationContext(), "dismiss", Toast.LENGTH_SHORT).show();
+            }
 
-                    @Override
-                    public void onSearch(String s) {
-                        // 在此实现你的搜索逻辑
-                        Toast.makeText(getApplicationContext(), "you search " + s, Toast.LENGTH_SHORT).show();
-                    }
+            @Override
+            public void onSearch(String s) {
+                // 在此实现你的搜索逻辑
+                Toast.makeText(getApplicationContext(), "you search " + s, Toast.LENGTH_SHORT).show();
+            }
 
-                    @Override
-                    public void onReset() {
-                        // 在此实现reset触发逻辑
-                        Toast.makeText(getApplicationContext(), "reset", Toast.LENGTH_SHORT).show();
-                    }
-                });
+            @Override
+            public void onReset() {
+                // 在此实现reset触发逻辑
+                Toast.makeText(getApplicationContext(), "reset", Toast.LENGTH_SHORT).show();
+            }
+        });
 ```
 ##### 如何自定义头部模块
 >共三个模块,每个模块都可以使用HeadModelConfig进行配置.
@@ -97,20 +97,23 @@ cityPickerXFragment.setPickerXInterface(new CommonPickerXInterface() {
 通过HeadModelConfig进行头部布局配置
 通过CityPickerXFragment.startShow(FragmentActivity activity, CityPickerConfig cityPickerConfig)应用
 
->setTag是头部配置非常重要的属性，是您修改更新头部数据重要的依据
+>**setTag**是头部配置非常重要的属性，是您修改更新头部数据重要的依据
 
 ```java
-// 生成头部配置类
-HeadModelConfig locationConfig = new HeadModelConfig("当前定位", listLocation);
-// setTag以用于更新数据
-locationConfig.setTag("当前定位");
-HeadModelConfig recentConfig = new HeadModelConfig("最近访问", listRecent, true, "近", 0, 0);
-recentConfig.setTag("最近访问");
-HeadModelConfig hotConfig = new HeadModelConfig("热门城市", listHot, true, "热", 0, 0);
-hotConfig.setTag("热门城市");
+// 您可前往MainTestActivity查看详细用法
 // 生成配置类
-CityPickerConfig cityPickerConfig = new CityPickerConfig(locationConfig, recentConfig, hotConfig, null);
-return cityPickerConfig;
+private CityPickerConfig getCityPickerConfig() {
+    HeadModelConfig locationConfig = new HeadModelConfig("当前定位", listLocation);
+    // setTag以用于更新数据
+    locationConfig.setTag("当前定位");
+    HeadModelConfig recentConfig = new HeadModelConfig("最近访问", listRecent, true, "近", 0, 0);
+    recentConfig.setTag("最近访问");
+    HeadModelConfig hotConfig = new HeadModelConfig("热门城市", listHot, true, "热", 0, 0);
+    hotConfig.setTag("热门城市");
+    // 生成配置类
+    CityPickerConfig cityPickerConfig = new CityPickerConfig(locationConfig, recentConfig, hotConfig, null);
+    return cityPickerConfig;
+}
 ```
 <br/>
 
@@ -120,10 +123,10 @@ return cityPickerConfig;
 注：如无需使用自定义列表，可直接setListData（null）即可
 
 #### 数据初始化建议
->建议您在设置列表之前(启动APP或获取城市列表后)使用CityDataInitUtils.initData进行初始化(识别首字母与排序)
+>建议您在设置列表之前(启动APP或获取城市列表后)使用**CityDataInitUtils.initData**进行初始化(识别首字母与排序)
 
 #### 如何更新数据
->使用以下方法:注意此处的tag与“自定义头部模块”部分的setTag为同一值
+>使用以下方法:注意此处的tag与“自定义头部模块”部分的**setTag**为同一值
 <br/>**如何更新头部数据：**<br/>
 >cityPickerXFragment.updateData(String tag, List<CityBean> _listBeans);
 <br/>**如何更新列表数据：**<br/>

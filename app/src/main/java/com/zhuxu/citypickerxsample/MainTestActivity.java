@@ -7,9 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.zhuxu.citypickerz.db.DBManager;
-import com.zhuxu.citypickerz.interfaces.CommonCityInterface;
 import com.zhuxu.citypickerz.interfaces.CommonPickerXInterface;
-import com.zhuxu.citypickerz.interfaces.CommonStringInterface;
 import com.zhuxu.citypickerz.model.CityBean;
 import com.zhuxu.citypickerz.model.CityPickerConfig;
 import com.zhuxu.citypickerz.model.HeadModelConfig;
@@ -20,7 +18,7 @@ import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainTestActivity extends AppCompatActivity {
 
     CityPickerXFragment cityPickerXFragment;
 
@@ -34,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dbManager = new DBManager(MainActivity.this);
+        dbManager = new DBManager(MainTestActivity.this);
         findViewById(com.zhuxu.citypickerz.R.id.jump_btn).setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -67,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(com.zhuxu.citypickerz.R.id.jump_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cityPickerXFragment = CityPickerXFragment.startShow(MainActivity.this, getCityPickerConfig());
+                cityPickerXFragment = CityPickerXFragment.startShow(MainTestActivity.this, getCityPickerConfig());
                 cityPickerXFragment.setPickerXInterface(new CommonPickerXInterface() {
                     @Override
                     public void onClick(CityBean cityBean) {
