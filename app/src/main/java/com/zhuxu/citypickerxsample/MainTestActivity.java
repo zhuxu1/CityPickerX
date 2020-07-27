@@ -35,29 +35,29 @@ public class MainTestActivity extends AppCompatActivity {
         findViewById(R.id.jump_btn).setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // 模拟更新数据
-                        List<CityBean> listLocation = new ArrayList<>();
-                        listLocation.add(new CityBean("济南n", "山东", "0546", "定位", CityBean.TYPE_STR_LOCATION));
-                        listLocation.add(new CityBean("黄河路n", "山东", "0546", "定位", CityBean.TYPE_STR_LOCATION));
-
-                        List<CityBean> listRecent = new ArrayList<>();
-                        listRecent.add(new CityBean("济南n", "山东", "0546", "最近", CityBean.TYPE_STR_RECENT));
-                        listRecent.add(new CityBean("深圳n", "山东", "0546", "最近", CityBean.TYPE_STR_RECENT));
-
-                        List<CityBean> listHot = new ArrayList<>();
-                        listHot.add(new CityBean("北京n", "山东", "0546", "热门", CityBean.TYPE_STR_LIST));
-                        listHot.add(new CityBean("深圳n", "山东", "0546", "热门", CityBean.TYPE_STR_LIST));
-
-                        cityPickerXFragment.updateData(STR_TITLE_HEAD_RECENT, listRecent);
-                        cityPickerXFragment.updateData(STR_TITLE_HEAD_LOCATION, listLocation);
-                        cityPickerXFragment.updateData(STR_TITLE_HEAD_HOT, listHot);
-
-                        Toast.makeText(getApplicationContext(), "10秒后数据自动变化", Toast.LENGTH_SHORT).show();
-                    }
-                }, 10000);
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        // 模拟更新数据
+//                        List<CityBean> listLocation = new ArrayList<>();
+//                        listLocation.add(new CityBean("济南n", "山东", "0546", "定位", CityBean.TYPE_STR_LOCATION));
+//                        listLocation.add(new CityBean("黄河路n", "山东", "0546", "定位", CityBean.TYPE_STR_LOCATION));
+//
+//                        List<CityBean> listRecent = new ArrayList<>();
+//                        listRecent.add(new CityBean("济南n", "山东", "0546", "最近", CityBean.TYPE_STR_RECENT));
+//                        listRecent.add(new CityBean("深圳n", "山东", "0546", "最近", CityBean.TYPE_STR_RECENT));
+//
+//                        List<CityBean> listHot = new ArrayList<>();
+//                        listHot.add(new CityBean("北京n", "山东", "0546", "热门", CityBean.TYPE_STR_LIST));
+//                        listHot.add(new CityBean("深圳n", "山东", "0546", "热门", CityBean.TYPE_STR_LIST));
+//
+//                        cityPickerXFragment.updateData(STR_TITLE_HEAD_RECENT, listRecent);
+//                        cityPickerXFragment.updateData(STR_TITLE_HEAD_LOCATION, listLocation);
+//                        cityPickerXFragment.updateData(STR_TITLE_HEAD_HOT, listHot);
+//
+//                        Toast.makeText(getApplicationContext(), "10秒后数据自动变化", Toast.LENGTH_SHORT).show();
+//                    }
+//                }, 10000);
                 return false;
             }
         });

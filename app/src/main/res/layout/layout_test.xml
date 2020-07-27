@@ -10,6 +10,6 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:padding="10dp"
-        android:text="点击跳转\n长按模拟数据变更" />
+        android:text="点击跳转" />
 
 </RelativeLayout>

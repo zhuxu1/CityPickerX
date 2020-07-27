@@ -95,11 +95,21 @@ cityPickerXFragment.setPickerXInterface(new CommonPickerXInterface() {
 
 >通过CityPickerConfig进行整个框架的配置
 通过HeadModelConfig进行头部布局配置
-通过CityPickerXFragment.startShow(FragmentActivity activity, CityPickerConfig cityPickerConfig)应用
+```
+    /**
+     * @param locationConfig 定位模块配置
+     * @param recentConfig   最近模块配置
+     * @param hotConfig      热门模块配置
+     * @param listData       列表数据配置
+     */
+    public CityPickerConfig(HeadModelConfig locationConfig, HeadModelConfig recentConfig, HeadModelConfig hotConfig, List<CityBean> listData) {
+        this.locationConfig = locationConfig;
+        this.recentConfig = recentConfig;
+        this.hotConfig = hotConfig;
+        this.listData = listData;
+    }
+```
 
->如果您只需要城市列表，那么您在startShow中直接传**new CityPickerConfig()**即可。
-
->**setTag**是头部配置非常重要的属性，是您修改更新头部数据重要的依据
 
 ```java
 // 您可前往MainTestActivity查看详细用法
@@ -107,6 +117,7 @@ cityPickerXFragment.setPickerXInterface(new CommonPickerXInterface() {
 private CityPickerConfig getCityPickerConfig() {
     HeadModelConfig locationConfig = new HeadModelConfig("当前定位", listLocation);
     // setTag以用于更新数据
+    // setTag是头部配置非常重要的属性，是您修改更新头部数据重要的依据
     locationConfig.setTag("当前定位");
     HeadModelConfig recentConfig = new HeadModelConfig("最近访问", listRecent, true, "近", 0, 0);
     recentConfig.setTag("最近访问");
@@ -118,23 +129,43 @@ private CityPickerConfig getCityPickerConfig() {
     return cityPickerConfig;
 }
 ```
+```
+    // 应用配置
+    CityPickerXFragment.startShow(FragmentActivity activity, CityPickerConfig cityPickerConfig)
+```
 <br/>
 
-#### 如何使用自定义列表
+##### 只使用列表
+>如果您只需要列表，在startShow时直接使用new CityPickerConfig()即可。
+>
+<br/>
+
+#### 使用自定义列表
 >默认会读取数据库文件中的城市列表<br/>
-如需自定义列表,可使用CityPickerConfig.setListData(List<CityBean> listData)设置数据<br/>
->如果不需要自定义列表,则setListData(null)即默认允许使用数据库列表数据<br/>
-切换自定义/原始数据需要重新初始化CityPickerConfig<br/>
+```
+    // 如需自定义列表,可使用设置数据
+    CityPickerConfig.setListData(List<CityBean> listData)
+    // 或在CityPickerConfig中设置数据
+```
+
+#### 不适用自定义列表、使用自带数据库信息
+```
+    // 切换自定义/原始数据需要重新初始化CityPickerConfig<br/>
+    // 在CityPickerConfig中设置listData为空
+```
 
 #### 数据初始化建议
 >建议您在设置列表之前(启动APP或获取城市列表后)使用**CityDataInitUtils.initData**进行初始化(识别首字母与排序)
 
 #### 如何更新数据
 >使用以下方法:注意此处的tag与“自定义头部模块”部分的**setTag**为同一值
-<br/>**如何更新头部数据：**<br/>
->cityPickerXFragment.updateData(String tag, List<CityBean> _listBeans);
-<br/>**如何更新列表数据：**<br/>
->cityPickerXFragment.updateListData(List<CityBean> _listBeans, boolean isALL)
+```
+    // 如何更新头部数据
+    cityPickerXFragment.updateData(String tag, List<CityBean> _listBeans);
+    // 如何更新列表数据  
+    // isALL : 是否需要添加头部显示  false为只有列表  true为带头部模块
+    cityPickerXFragment.updateListData(List<CityBean> _listBeans, boolean isALL)
+```
 
 #### 更多自定义
 >CityBean与HeadModelConfig均支持自定义未使用拓展字段"tag"，或许您可以用得到
@@ -147,6 +178,7 @@ private CityPickerConfig getCityPickerConfig() {
 * 解决添加导入的时候报错gradle版本不匹配的bug
 * 修复“头部模块”与侧导航栏联动不一致的问题
 * 修复一个添加默认配置文件时数据异常的问题
+* 更新dmeo
 * 更新README.md
 
 ##### 2020-7-25
