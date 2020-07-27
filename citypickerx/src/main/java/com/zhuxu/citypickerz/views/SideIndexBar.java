@@ -92,11 +92,10 @@ public class SideIndexBar extends View {
             for (_index = 0; _index < ENGLISGH_LETTERS.length; _index++) {
                 _temp[letters.size() + _index] = CityPickerXUtils.getSideIndexStr(ENGLISGH_LETTERS[_index]);
             }
+            mLetters = _temp;
         } else {
             mLetters = ENGLISGH_LETTERS;
         }
-        mLetters = _temp;
-
         if (hasDraw) {
             postInvalidate();
         }

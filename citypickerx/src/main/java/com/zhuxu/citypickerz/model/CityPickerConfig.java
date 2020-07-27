@@ -22,6 +22,10 @@ public class CityPickerConfig implements Serializable {
     private List<CityBean> listData = new ArrayList<>();
 
     public CityPickerConfig() {
+        this.locationConfig = new HeadModelConfig(false);
+        this.recentConfig = new HeadModelConfig(false);
+        this.hotConfig = new HeadModelConfig(false);
+        this.listData = new ArrayList<>();
     }
 
     /**

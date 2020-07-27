@@ -30,9 +30,9 @@ public class MainTestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.layout_test);
         dbManager = new DBManager(MainTestActivity.this);
-        findViewById(com.zhuxu.citypickerz.R.id.jump_btn).setOnLongClickListener(new View.OnLongClickListener() {
+        findViewById(R.id.jump_btn).setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 new Handler().postDelayed(new Runnable() {
@@ -61,10 +61,11 @@ public class MainTestActivity extends AppCompatActivity {
                 return false;
             }
         });
-        findViewById(com.zhuxu.citypickerz.R.id.jump_btn).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.jump_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cityPickerXFragment = CityPickerXFragment.startShow(MainTestActivity.this, getCityPickerConfig());
+//                cityPickerXFragment = CityPickerXFragment.startShow(MainTestActivity.this, new CityPickerConfig());
                 cityPickerXFragment.setPickerXInterface(new CommonPickerXInterface() {
                     @Override
                     public void onClick(CityBean cityBean) {

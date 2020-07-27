@@ -234,22 +234,21 @@ public class CityPickerXFragment extends DialogFragment {
     List<HeadModelConfig> headViews = new ArrayList<>();
 
     private void initHeadViews() {
-        if (cityPickerConfig == null) {
-            return;
-        }
         headViews = new ArrayList<>();
         sideIndexList = new ArrayList<>();
-        if (cityPickerConfig.getLocationConfig() != null && cityPickerConfig.getLocationConfig().isEnabled()) {
-            headViews.add(cityPickerConfig.getLocationConfig());
-            sideIndexList.add(cityPickerConfig.getLocationConfig().getTitle());
-        }
-        if (cityPickerConfig.getRecentConfig() != null && cityPickerConfig.getRecentConfig().isEnabled()) {
-            headViews.add(cityPickerConfig.getRecentConfig());
-            sideIndexList.add(cityPickerConfig.getRecentConfig().getTitle());
-        }
-        if (cityPickerConfig.getHotConfig() != null && cityPickerConfig.getHotConfig().isEnabled()) {
-            headViews.add(cityPickerConfig.getHotConfig());
-            sideIndexList.add(cityPickerConfig.getHotConfig().getTitle());
+        if (cityPickerConfig != null) {
+            if (cityPickerConfig.getLocationConfig() != null && cityPickerConfig.getLocationConfig().isEnabled()) {
+                headViews.add(cityPickerConfig.getLocationConfig());
+                sideIndexList.add(cityPickerConfig.getLocationConfig().getTitle());
+            }
+            if (cityPickerConfig.getRecentConfig() != null && cityPickerConfig.getRecentConfig().isEnabled()) {
+                headViews.add(cityPickerConfig.getRecentConfig());
+                sideIndexList.add(cityPickerConfig.getRecentConfig().getTitle());
+            }
+            if (cityPickerConfig.getHotConfig() != null && cityPickerConfig.getHotConfig().isEnabled()) {
+                headViews.add(cityPickerConfig.getHotConfig());
+                sideIndexList.add(cityPickerConfig.getHotConfig().getTitle());
+            }
         }
         mAdapter.addHeadViews(headViews);
         mZCitypickerSideindexbar.addLetters(sideIndexList);

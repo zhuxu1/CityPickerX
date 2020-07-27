@@ -12,7 +12,7 @@
 
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![API](https://img.shields.io/badge/API-16%2B-yellow.svg?style=flat)](https://android-arsenal.com/api?level=23)
-[ ![Download](https://api.bintray.com/packages/zhuxu820/Utils/CityPickerX/images/download.svg?version=0.5.1) ](https://bintray.com/zhuxu820/Utils/CityPickerX/0.5.1/link)
+[ ![Download](https://api.bintray.com/packages/zhuxu820/Utils/CityPickerX/images/download.svg?version=0.6.0) ](https://bintray.com/zhuxu820/Utils/CityPickerX/0.6.0/link)
 
 <br />
 
@@ -26,10 +26,9 @@
 * 搭建侧边导航栏与列表的沟通
 * 添加自动首字母识别与自动排序(为提高效率目前需要手动调用)
 * 快速设置头部布局
-* 支持AndroidX
+* 支持AndroidX与support
 
 #### 未来打算
-* 修复support支持bug
 * 优化代码结构
 * 优化启动方法
 * 添加单独设置item icon功能
@@ -46,15 +45,16 @@
 <dependency>
 	<groupId>com.utils.cocoz</groupId>
 	<artifactId>citypickerx</artifactId>
-	<version>0.5.1</version>
+	<version>0.6.0</version>
 	<type>pom</type>
 </dependency>
 ```
 ```
-implementation 'com.utils.cocoz:citypickerx:0.5.1'
+implementation 'com.utils.cocoz:citypickerx:0.6.0'   //必选
+implementation 'com.android.support:recyclerview-v7:27.1.1'	//必选
 ```
 ```
-<dependency org="com.utils.cocoz" name="citypickerx" rev="0.5.1">
+<dependency org="com.utils.cocoz" name="citypickerx" rev="0.6.0">
 	<artifact name="citypickerx" ext="pom"></artifact>
 </dependency>
 ```
@@ -96,6 +96,8 @@ cityPickerXFragment.setPickerXInterface(new CommonPickerXInterface() {
 >通过CityPickerConfig进行整个框架的配置
 通过HeadModelConfig进行头部布局配置
 通过CityPickerXFragment.startShow(FragmentActivity activity, CityPickerConfig cityPickerConfig)应用
+
+>如果您只需要城市列表，那么您在startShow中直接传**new CityPickerConfig()**即可。
 
 >**setTag**是头部配置非常重要的属性，是您修改更新头部数据重要的依据
 
@@ -142,8 +144,10 @@ private CityPickerConfig getCityPickerConfig() {
 ### 更新日志
 
 ##### 2020-7-27
-* 解决AndroidX 添加导入的时候报错gradle版本不匹配的bug
+* 解决添加导入的时候报错gradle版本不匹配的bug
 * 修复“头部模块”与侧导航栏联动不一致的问题
+* 修复一个添加默认配置文件时数据异常的问题
+* 更新README.md
 
 ##### 2020-7-25
 * 优化事件接口,统一修改为PickerXInterface
