@@ -90,41 +90,28 @@ cityPickerXFragment.setPickerXInterface(new CommonPickerXInterface() {
         });
 ```
 ##### 如何自定义头部模块
->共三个模块,每个模块都可以使用HeadModelConfig进行配置.
-以下为示例代码，具体使用可查阅HeadModelConfig类中的备注
+>共三个模块,每个模块都可以使用HeadModelConfig进行配置.具体使用可查阅HeadModelConfig类中的备注
 
 >通过CityPickerConfig进行整个框架的配置
 通过HeadModelConfig进行头部布局配置
-```
-    /**
-     * @param locationConfig 定位模块配置
-     * @param recentConfig   最近模块配置
-     * @param hotConfig      热门模块配置
-     * @param listData       列表数据配置
-     */
-    public CityPickerConfig(HeadModelConfig locationConfig, HeadModelConfig recentConfig, HeadModelConfig hotConfig, List<CityBean> listData) {
-        this.locationConfig = locationConfig;
-        this.recentConfig = recentConfig;
-        this.hotConfig = hotConfig;
-        this.listData = listData;
-    }
-```
-
 
 ```java
-// 您可前往MainTestActivity查看详细用法
-// 生成配置类
+    // 您可前往MainTestActivity查看详细用法
+    // 或查看CityPickerConfig类中的备注
+    // 生成配置类
 private CityPickerConfig getCityPickerConfig() {
     HeadModelConfig locationConfig = new HeadModelConfig("当前定位", listLocation);
     // setTag以用于更新数据
     // setTag是头部配置非常重要的属性，是您修改更新头部数据重要的依据
+    // 建议您将tag设置为静态变量已方便调用，减少出错
     locationConfig.setTag("当前定位");
     HeadModelConfig recentConfig = new HeadModelConfig("最近访问", listRecent, true, "近", 0, 0);
     recentConfig.setTag("最近访问");
     HeadModelConfig hotConfig = new HeadModelConfig("热门城市", listHot, true, "热", 0, 0);
     hotConfig.setTag("热门城市");
-    // 生成配置类 CityPickerConfig 可点击查看详细备注
-    // 最后参数设置为null  则表示使用自带的数据库列表 否则可在此实现自定义列表数据
+    // 生成配置类 CityPickerConfig
+    // 最后cityPickerConfig中的listdata参数设置为null  则表示使用自带的数据库列表 否则可在此实现自定义列表数据
+    // 可查看下方备注
     CityPickerConfig cityPickerConfig = new CityPickerConfig(locationConfig, recentConfig, hotConfig, null);
     return cityPickerConfig;
 }
@@ -133,10 +120,11 @@ private CityPickerConfig getCityPickerConfig() {
     // 应用配置
     CityPickerXFragment.startShow(FragmentActivity activity, CityPickerConfig cityPickerConfig)
 ```
+
 <br/>
 
 ##### 只使用列表
->如果您只需要列表，在startShow时直接使用new CityPickerConfig()即可。
+>如果您只需要列表，在startShow时生成默认配置文件(直接调用new CityPickerConfig())即可。
 >
 <br/>
 
