@@ -1,6 +1,7 @@
 package com.zhuxu.citypickerz.views;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -16,8 +17,6 @@ import android.widget.TextView;
 
 import com.zhuxu.citypickerz.R;
 import com.zhuxu.citypickerz.utils.CityPickerXUtils;
-
-import androidx.annotation.Nullable;
 
 /**
  * craated by Zhuxu _email:332525966@qq.com

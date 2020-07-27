@@ -12,7 +12,7 @@
 
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![API](https://img.shields.io/badge/API-16%2B-yellow.svg?style=flat)](https://android-arsenal.com/api?level=23)
-[ ![Download](https://api.bintray.com/packages/zhuxu820/Utils/CityPickerX/images/download.svg?version=0.4.2) ](https://bintray.com/zhuxu820/Utils/CityPickerX/0.4.2/link)
+[ ![Download](https://api.bintray.com/packages/zhuxu820/Utils/CityPickerX/images/download.svg?version=0.5.1) ](https://bintray.com/zhuxu820/Utils/CityPickerX/0.5.1/link)
 
 <br />
 
@@ -29,6 +29,7 @@
 * 支持AndroidX
 
 #### 未来打算
+* 修复support支持bug
 * 优化代码结构
 * 优化启动方法
 * 添加单独设置item icon功能
@@ -45,15 +46,15 @@
 <dependency>
 	<groupId>com.utils.cocoz</groupId>
 	<artifactId>citypickerx</artifactId>
-	<version>0.4.2</version>
+	<version>0.5.1</version>
 	<type>pom</type>
 </dependency>
 ```
 ```
-implementation 'com.utils.cocoz:citypickerx:0.4.2'
+implementation 'com.utils.cocoz:citypickerx:0.5.1'
 ```
 ```
-<dependency org="com.utils.cocoz" name="citypickerx" rev="0.4.2">
+<dependency org="com.utils.cocoz" name="citypickerx" rev="0.5.1">
 	<artifact name="citypickerx" ext="pom"></artifact>
 </dependency>
 ```
@@ -139,6 +140,10 @@ private CityPickerConfig getCityPickerConfig() {
 **如果您的需求无法实现或者您有更好的想法，非常欢迎您在issue中与我交流。我认为这是很重要的学习提升的过程**
 
 ### 更新日志
+
+##### 2020-7-27
+* 解决AndroidX 添加导入的时候报错gradle版本不匹配的bug
+* 修复“头部模块”与侧导航栏联动不一致的问题
 
 ##### 2020-7-25
 * 优化事件接口,统一修改为PickerXInterface

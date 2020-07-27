@@ -1,16 +1,12 @@
 package com.zhuxu.citypickerz.views;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.LinearLayout;
 
-import com.zhuxu.citypickerz.R;
 import com.zhuxu.citypickerz.interfaces.CommonBoolInterface;
 import com.zhuxu.citypickerz.interfaces.CommonStringInterface;
-
-import androidx.annotation.Nullable;
 
 /**
  * craated by Zhuxu _email:332525966@qq.com

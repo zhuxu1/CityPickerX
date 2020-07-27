@@ -5,13 +5,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.Build;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
 import com.zhuxu.citypickerz.R;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 自定义装饰器（实现分组+吸顶效果）
@@ -50,7 +51,9 @@ public class StickHeaderDecoration extends RecyclerView.ItemDecoration {
         mItemHeaderTextPaint.setTextSize(46);
         mItemHeaderTextPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 //        mItemHeaderTextPaint.setColor(Color.BLACK);
-        mItemHeaderTextPaint.setColor(context.getColor(R.color.z_color_black_txt));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mItemHeaderTextPaint.setColor(context.getColor(R.color.z_color_black_txt));
+        }
 
         mLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 //        mLinePaint.setColor(Color.GRAY);

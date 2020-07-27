@@ -1,6 +1,13 @@
 package com.zhuxu.citypickerz.modules;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,20 +26,11 @@ import com.zhuxu.citypickerz.model.CityBean;
 import com.zhuxu.citypickerz.model.CityPickerConfig;
 import com.zhuxu.citypickerz.model.HeadModelConfig;
 import com.zhuxu.citypickerz.utils.CityPickerXUtils;
-import com.zhuxu.citypickerz.views.CustomHeadViews;
 import com.zhuxu.citypickerz.views.SearchView;
 import com.zhuxu.citypickerz.views.SideIndexBar;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.widget.NestedScrollView;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class CityPickerXFragment extends DialogFragment {
 
@@ -174,14 +172,14 @@ public class CityPickerXFragment extends DialogFragment {
             public void onLetterChanged(String letter) {
                 mCenterIndexHint.setVisibility(View.VISIBLE);
                 mCenterIndexHint.setText(letter);
-                if (sideIndexList.size() > 0) {
-                    for (String s : sideIndexList) {
-                        if (TextUtils.equals(letter, CityPickerXUtils.getSideIndexStr(s))) {
-                            mAdapter.scrollToSectionHead();
-                            return;
-                        }
-                    }
-                }
+//                if (sideIndexList.size() > 0) {
+//                    for (String s : sideIndexList) {
+//                        if (TextUtils.equals(letter, CityPickerXUtils.getSideIndexStr(s))) {
+//                            mAdapter.scrollToSectionHead();
+//                            return;
+//                        }
+//                    }
+//                }
                 mAdapter.scrollToSection(letter);
             }
 
@@ -275,7 +273,7 @@ public class CityPickerXFragment extends DialogFragment {
      * 更新列表数据
      *
      * @param _listBeans
-     * @param isALL    是否需要添加头部显示
+     * @param isALL      是否需要添加头部显示
      */
     public void updateListData(List<CityBean> _listBeans, boolean isALL) {
         if (_listBeans == null || _listBeans.size() == 0) {

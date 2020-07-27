@@ -1,19 +1,14 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
 
-    <style name="Dialog.FullScreen" parent="Theme.AppCompat.Dialog">
+<!--    <style name="Dialog.FullScreen" parent="AlertDialog.AppCompat">-->
+    <style name="Dialog.FullScreen" parent="@android:style/Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustPan</item>
     </style>
 
-    <style name="FragmentDialogAnimation">
+    <style name="FragmentDialogAnimation" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/cp_push_bottom_in</item>
         <item name="android:windowExitAnimation">@anim/cp_push_bottom_out</item>
     </style>

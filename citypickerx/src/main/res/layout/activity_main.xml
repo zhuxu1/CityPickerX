@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <androidx.core.widget.NestedScrollView
+        <android.support.v4.widget.NestedScrollView
             android:id="@+id/z_citypicker_scrollview"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -42,14 +42,14 @@
                     android:layout_height="10dp"
                     android:background="@color/z_color_spacing" />
 
-                <androidx.recyclerview.widget.RecyclerView
+                <android.support.v7.widget.RecyclerView
                     android:id="@+id/z_citypicker_scrollview_recycleview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
 
-        </androidx.core.widget.NestedScrollView>
+        </android.support.v4.widget.NestedScrollView>
 
         <com.zhuxu.citypickerz.views.SideIndexBar
             android:id="@+id/z_citypicker_sideindexbar"

@@ -1,8 +1,8 @@
 package com.zhuxu.citypickerz.views;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -12,8 +12,6 @@ import com.zhuxu.citypickerz.R;
 import com.zhuxu.citypickerz.interfaces.CommonCityInterface;
 import com.zhuxu.citypickerz.model.CityBean;
 import com.zhuxu.citypickerz.model.HeadModelConfig;
-
-import androidx.annotation.Nullable;
 
 /**
  * craated by Zhuxu _email:332525966@qq.com

@@ -1,16 +1,16 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 27
     buildToolsVersion "29.0.3"
 
     defaultConfig {
         minSdkVersion 23
-        targetSdkVersion 29
-        versionCode 11
-        versionName "0.1.1"
+        targetSdkVersion 27
+        versionCode 44
+        versionName "0.5.1"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -23,13 +23,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.android.support:appcompat-v7:29.0.0'
-    implementation 'com.android.support:recyclerview-v7:29.0.0'
+    compileOnly 'com.android.support:appcompat-v7:27.1.1'
+    compileOnly 'com.android.support:recyclerview-v7:27.1.1'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation 'com.github.promeg:tinypinyin:2.0.3' // TinyPinyin核心包，约80KB
     implementation 'com.github.promeg:tinypinyin-lexicons-android-cncity:2.0.3' // 可选，适用于Android的中国地区词典
@@ -52,7 +48,7 @@ group = "com.utils.cocoz"
 //发布到JCenter上的项目名字，必须填写
 def libName = "CityPickerX"
 // 版本号，下次更新是只需要更改版本号即可
-version = "0.4.2"
+version = "0.5.1"
 /**  上面配置后上传至JCenter后的编译路径是这样的： compile 'group:libName:version'  **/
 
 //生成源文件

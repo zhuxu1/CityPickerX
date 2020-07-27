@@ -1,6 +1,8 @@
 package com.zhuxu.citypickerz.modules;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +19,6 @@ import com.zhuxu.citypickerz.views.AutoLinefeedLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import static android.view.View.VISIBLE;
 import static com.zhuxu.citypickerz.model.CityBean.TYPE_STR_HEAD;
@@ -245,7 +244,7 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (TextUtils.isEmpty(index)) return;
         int size = mList.size();
         for (int i = 0; i < size; i++) {
-            if (TextUtils.equals(index.substring(0, 1), mList.get(i).getPinyin())) {
+            if (TextUtils.equals(index.substring(0, 1), mList.get(i).getPinyin().substring(0, 1))) {
                 if (mLayoutManager != null) {
                     mLayoutManager.scrollToPositionWithOffset(i, 0);
 //                    if (TextUtils.equals(index.substring(0, 1), "定")) {
