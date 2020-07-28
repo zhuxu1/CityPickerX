@@ -12,7 +12,7 @@
 
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![API](https://img.shields.io/badge/API-16%2B-yellow.svg?style=flat)](https://android-arsenal.com/api?level=23)
-[ ![Download](https://api.bintray.com/packages/zhuxu820/Utils/CityPickerX/images/download.svg?version=0.6.0) ](https://bintray.com/zhuxu820/Utils/CityPickerX/0.6.0/link)
+[ ![Download](https://api.bintray.com/packages/zhuxu820/citypickerx/CityPickerX/images/download.svg?version=0.6.0) ](https://bintray.com/zhuxu820/citypickerx/CityPickerX/0.6.0/link)
 
 <br />
 
@@ -43,18 +43,18 @@
 #### 如何使用
 ```
 <dependency>
-	<groupId>com.utils.cocoz</groupId>
+	<groupId>com.cocoz.utilsz</groupId>
 	<artifactId>citypickerx</artifactId>
 	<version>0.6.0</version>
 	<type>pom</type>
 </dependency>
 ```
 ```
-implementation 'com.utils.cocoz:citypickerx:0.6.0'   //必选
+implementation 'com.cocoz.utilsz:citypickerx:0.6.0'   //必选
 implementation 'com.android.support:recyclerview-v7:27.1.1'	//必选
 ```
 ```
-<dependency org="com.utils.cocoz" name="citypickerx" rev="0.6.0">
+<dependency org="com.cocoz.utilsz" name="citypickerx" rev="0.6.0">
 	<artifact name="citypickerx" ext="pom"></artifact>
 </dependency>
 ```
@@ -161,6 +161,9 @@ private CityPickerConfig getCityPickerConfig() {
 **如果您的需求无法实现或者您有更好的想法，非常欢迎您在issue中与我交流。我认为这是很重要的学习提升的过程**
 
 ### 更新日志
+
+##### 2020-7-28
+* 重新上传jcenter,更新库地址
 
 ##### 2020-7-27
 * 解决添加导入的时候报错gradle版本不匹配的bug
