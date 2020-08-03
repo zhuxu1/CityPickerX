@@ -15,6 +15,6 @@ public interface CommonPickerXInterface {
 
     void onSearch(String s);
 
-    void onReset();
+    void onInit();
 
 }

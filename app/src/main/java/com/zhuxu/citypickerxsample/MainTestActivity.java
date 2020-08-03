@@ -71,6 +71,7 @@ public class MainTestActivity extends AppCompatActivity {
                     public void onClick(CityBean cityBean) {
                         // 在此实现你的点击逻辑
                         Toast.makeText(getApplicationContext(), "you clicked " + cityBean.getName() + " , this is a " + cityBean.getType(), Toast.LENGTH_SHORT).show();
+                        cityPickerXFragment.hideDialog();
                     }
 
                     @Override
@@ -93,11 +94,9 @@ public class MainTestActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onReset() {
-                        // 在此实现reset触发逻辑
-                        Toast.makeText(getApplicationContext(), "reset", Toast.LENGTH_SHORT).show();
-                        List<CityBean> beanList = dbManager.getAllCities();
-                        cityPickerXFragment.updateListData(beanList, true);
+                    public void onInit() {
+                        // 初始化完成后的请求
+                        // 例如定位，更新
                     }
                 });
             }

@@ -1,5 +1,6 @@
 package com.zhuxu.citypickerz.modules;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -39,9 +41,13 @@ public class CityPickerXFragment extends DialogFragment {
     public static CityPickerXFragment startShow(FragmentActivity activity, CityPickerConfig cityPickerConfig) {
         if (cityPickerXFragment == null) {
             cityPickerXFragment = CityPickerXFragment.newInstance(cityPickerConfig);
+        } else {
+            if (cityPickerXFragment.getDialog() != null) {
+                cityPickerXFragment.getDialog().show();
+            }
         }
         if (cityPickerXFragment.isAdded()) {
-            activity.getSupportFragmentManager().beginTransaction().show(cityPickerXFragment).commitAllowingStateLoss();
+            activity.getSupportFragmentManager().beginTransaction().show(cityPickerXFragment).commitNowAllowingStateLoss();
         } else {
             activity.getSupportFragmentManager().beginTransaction().add(cityPickerXFragment, "cityPickerXActivity").commitAllowingStateLoss();
         }
@@ -103,10 +109,7 @@ public class CityPickerXFragment extends DialogFragment {
         } else {
             CityPickerXUtils.showToast(getActivity(), STR_CONFIG_HINT_ERROR);
             Log.e(TAG, STR_CONFIG_HINT_ERROR);
-            if (pickerXInterface != null) {
-                pickerXInterface.onDismiss();
-            }
-            dismiss();
+            hideDialog();
             return;
         }
 
@@ -139,16 +142,23 @@ public class CityPickerXFragment extends DialogFragment {
         mZCitypickerSideindexbar = getView().findViewById(R.id.z_citypicker_sideindexbar);
         mCenterIndexHint = getView().findViewById(R.id.layout_citylist_index_hint);
         tvEmpty = getView().findViewById(R.id.z_citypicker_scrollview_recycleview_empty);
+        mZCitypickerRecycleview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                mZCitypickerRecycleview.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                Log.e("zhuxu", "=======加载完成=======");
+                if (pickerXInterface != null) {
+                    pickerXInterface.onInit();
+                }
+            }
+        });
     }
 
     private void initSearchView() {
         mZCitypickerSearchview.setCloseListener(new CommonBoolInterface() {
             @Override
             public void result(boolean result) {
-                if (pickerXInterface != null) {
-                    pickerXInterface.onDismiss();
-                }
-                dismiss();
+                hideDialog();
             }
         });
         mZCitypickerSearchview.setSearchListener(new CommonStringInterface() {
@@ -163,7 +173,7 @@ public class CityPickerXFragment extends DialogFragment {
             @Override
             public void result(boolean result) {
                 if (pickerXInterface != null) {
-                    pickerXInterface.onReset();
+//                    pickerXInterface.onReset();
                 }
             }
         });
@@ -308,4 +318,21 @@ public class CityPickerXFragment extends DialogFragment {
     public void setPickerXInterface(CommonPickerXInterface commonPickerXInterface) {
         pickerXInterface = commonPickerXInterface;
     }
+
+    public void hideDialog() {
+        if (getDialog() != null) {
+            getDialog().hide();
+        }
+        if (pickerXInterface != null) {
+            pickerXInterface.onDismiss();
+        }
+    }
+//
+//    @Override
+//    public void onDismiss(DialogInterface dialog) {
+//        super.onDismiss(dialog);
+//        if (pickerXInterface != null) {
+//            pickerXInterface.onDismiss();
+//        }
+//    }
 }

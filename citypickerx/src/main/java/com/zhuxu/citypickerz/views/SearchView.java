@@ -102,7 +102,7 @@ public class SearchView extends BaseSearchView {
 //                }
                 if (!TextUtils.isEmpty(s.toString())) {
                     btn_clear.setVisibility(VISIBLE);
-                    btn_reset.setVisibility(VISIBLE);
+//                    btn_reset.setVisibility(VISIBLE);
                 } else {
                     btn_clear.setVisibility(GONE);
                     btn_reset.setVisibility(GONE);

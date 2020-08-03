@@ -12,7 +12,7 @@
 
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![API](https://img.shields.io/badge/API-16%2B-yellow.svg?style=flat)](https://android-arsenal.com/api?level=23)
-[ ![Download](https://api.bintray.com/packages/zhuxu820/citypickerx/CityPickerX/images/download.svg?version=0.6.0) ](https://bintray.com/zhuxu820/citypickerx/CityPickerX/0.6.0/link)
+[ ![Download](https://api.bintray.com/packages/zhuxu820/citypickerx/CityPickerX/images/download.svg?version=0.6.3) ](https://bintray.com/zhuxu820/citypickerx/CityPickerX/0.6.3/link)
 
 <br />
 
@@ -30,7 +30,6 @@
 
 #### 未来打算
 * 优化代码结构
-* 优化启动方法
 * 添加单独设置item icon功能
 * 解决BUG
 
@@ -45,16 +44,16 @@
 <dependency>
 	<groupId>com.cocoz.utilsz</groupId>
 	<artifactId>citypickerx</artifactId>
-	<version>0.6.0</version>
+	<version>0.6.3</version>
 	<type>pom</type>
 </dependency>
 ```
 ```
-implementation 'com.cocoz.utilsz:citypickerx:0.6.0'   //必选
+implementation 'com.cocoz.utilsz:citypickerx:0.6.3'   //必选
 implementation 'com.android.support:recyclerview-v7:27.1.1'	//必选
 ```
 ```
-<dependency org="com.cocoz.utilsz" name="citypickerx" rev="0.6.0">
+<dependency org="com.cocoz.utilsz" name="citypickerx" rev="0.6.3">
 	<artifact name="citypickerx" ext="pom"></artifact>
 </dependency>
 ```
@@ -83,9 +82,9 @@ cityPickerXFragment.setPickerXInterface(new CommonPickerXInterface() {
             }
 
             @Override
-            public void onReset() {
-                // 在此实现reset触发逻辑
-                Toast.makeText(getApplicationContext(), "reset", Toast.LENGTH_SHORT).show();
+            public void onInit() {
+                // 初始化完成后的请求
+                // 例如定位，更新
             }
         });
 ```
@@ -145,6 +144,11 @@ private CityPickerConfig getCityPickerConfig() {
 #### 数据初始化建议
 >建议您在设置列表之前(启动APP或获取城市列表后)使用**CityDataInitUtils.initData**进行初始化(识别首字母与排序)
 
+#### 启动速度
+>建议您在回调onInit中调用如“定位”、“更新数据”。   
+>建议您不要使用dismiss，使用**cityPickerXFragment.hideDialog();**来代替dismiss
+>使用hideDialog()可以帮助您提高下次启动速度
+
 #### 如何更新数据
 >使用以下方法:注意此处的tag与“自定义头部模块”部分的**setTag**为同一值
 ```
@@ -161,6 +165,11 @@ private CityPickerConfig getCityPickerConfig() {
 **如果您的需求无法实现或者您有更好的想法，非常欢迎您在issue中与我交流。我认为这是很重要的学习提升的过程**
 
 ### 更新日志
+
+##### 2020-8-03
+* 删除onRest回调
+* 新增onInit回调
+* 大幅优化二次启动速度(使用hideDialog()方法代替dismiss())
 
 ##### 2020-7-28
 * 重新上传jcenter,更新库地址
