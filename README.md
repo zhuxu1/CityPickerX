@@ -146,8 +146,6 @@ private CityPickerConfig getCityPickerConfig() {
 
 #### 启动速度
 >建议您在回调onInit中调用如“定位”、“更新数据”。   
->建议您不要使用dismiss，使用**cityPickerXFragment.hideDialog();**来代替dismiss
->使用hideDialog()可以帮助您提高下次启动速度
 
 #### 如何更新数据
 >使用以下方法:注意此处的tag与“自定义头部模块”部分的**setTag**为同一值
