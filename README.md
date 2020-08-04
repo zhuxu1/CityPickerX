@@ -12,7 +12,7 @@
 
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![API](https://img.shields.io/badge/API-16%2B-yellow.svg?style=flat)](https://android-arsenal.com/api?level=23)
-[ ![Download](https://api.bintray.com/packages/zhuxu820/citypickerx/CityPickerX/images/download.svg?version=0.6.3) ](https://bintray.com/zhuxu820/citypickerx/CityPickerX/0.6.3/link)
+[ ![Download](https://api.bintray.com/packages/zhuxu820/citypickerx/CityPickerX/images/download.svg?version=0.6.4) ](https://bintray.com/zhuxu820/citypickerx/CityPickerX/0.6.4/link)
 
 <br />
 
@@ -44,16 +44,16 @@
 <dependency>
 	<groupId>com.cocoz.utilsz</groupId>
 	<artifactId>citypickerx</artifactId>
-	<version>0.6.3</version>
+	<version>0.6.4</version>
 	<type>pom</type>
 </dependency>
 ```
 ```
-implementation 'com.cocoz.utilsz:citypickerx:0.6.3'   //必选
+implementation 'com.cocoz.utilsz:citypickerx:0.6.4'   //必选
 implementation 'com.android.support:recyclerview-v7:27.1.1'	//必选
 ```
 ```
-<dependency org="com.cocoz.utilsz" name="citypickerx" rev="0.6.3">
+<dependency org="com.cocoz.utilsz" name="citypickerx" rev="0.6.4">
 	<artifact name="citypickerx" ext="pom"></artifact>
 </dependency>
 ```
@@ -166,10 +166,12 @@ private CityPickerConfig getCityPickerConfig() {
 
 ### 更新日志
 
+##### 2020-8-04
+* 修复异常调用bug
+
 ##### 2020-8-03
 * 删除onRest回调
 * 新增onInit回调
-* 大幅优化二次启动速度(使用hideDialog()方法代替dismiss())
 
 ##### 2020-7-28
 * 重新上传jcenter,更新库地址

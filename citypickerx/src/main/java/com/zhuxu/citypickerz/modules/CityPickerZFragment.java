@@ -1,10 +1,11 @@
 package com.zhuxu.citypickerz.modules;
 
-import android.content.DialogInterface;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -34,25 +37,7 @@ import com.zhuxu.citypickerz.views.SideIndexBar;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CityPickerXFragment extends DialogFragment {
-
-    private static CityPickerXFragment cityPickerXFragment;
-
-    public static CityPickerXFragment startShow(FragmentActivity activity, CityPickerConfig cityPickerConfig) {
-        if (cityPickerXFragment == null) {
-            cityPickerXFragment = CityPickerXFragment.newInstance(cityPickerConfig);
-        } else {
-//            if (cityPickerXFragment.getDialog() != null) {
-//                cityPickerXFragment.getDialog().show();
-//            }
-        }
-        if (cityPickerXFragment.isAdded()) {
-            activity.getSupportFragmentManager().beginTransaction().show(cityPickerXFragment).commitNowAllowingStateLoss();
-        } else {
-            activity.getSupportFragmentManager().beginTransaction().add(cityPickerXFragment, "cityPickerXActivity").commitAllowingStateLoss();
-        }
-        return cityPickerXFragment;
-    }
+public class CityPickerZFragment extends Fragment {
 
     public static final String TAG = "CityPickerX";
     private static final String STR_CONFIG_HINT_ERROR = "解析失败,请检查启动调用是否合规!";
@@ -65,8 +50,8 @@ public class CityPickerXFragment extends DialogFragment {
     private TextView mCenterIndexHint;
     private TextView tvEmpty;
 
-    public static CityPickerXFragment newInstance(CityPickerConfig config) {
-        final CityPickerXFragment fragment = new CityPickerXFragment();
+    public static CityPickerZFragment newInstance(CityPickerConfig config) {
+        final CityPickerZFragment fragment = new CityPickerZFragment();
         Bundle args = new Bundle();
         args.putSerializable("key", config);
         fragment.setArguments(args);
@@ -80,10 +65,18 @@ public class CityPickerXFragment extends DialogFragment {
     }
 
     @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        int id = enter ? R.anim.cp_push_bottom_in : R.anim.cp_push_bottom_out;
+        return AnimationUtils.loadAnimation(getContext(), id);
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initData();
-        initViews();
+        if (cityPickerConfig != null) {
+            initData();
+            initViews();
+        }
     }
 
     @Override
@@ -95,7 +88,6 @@ public class CityPickerXFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(STYLE_NORMAL, R.style.Dialog_FullScreen);
     }
 
     CityPickerConfig cityPickerConfig;
@@ -103,16 +95,11 @@ public class CityPickerXFragment extends DialogFragment {
     private DBManager dbManager;
 
     private void initData() {
-        Bundle args = getArguments();
-        if (args != null) {
-            cityPickerConfig = (CityPickerConfig) args.getSerializable("key");
-        } else {
-            CityPickerXUtils.showToast(getActivity(), STR_CONFIG_HINT_ERROR);
-            Log.e(TAG, STR_CONFIG_HINT_ERROR);
-            hideDialog();
+        if (cityPickerConfig == null) {
+            cityPickerConfig = new CityPickerConfig();
+            beanList = cityPickerConfig.getListData();
             return;
         }
-
         if (!cityPickerConfig.useCustomListData()) {
             beanList = new ArrayList<>();
             dbManager = new DBManager(getActivity());
@@ -327,11 +314,16 @@ public class CityPickerXFragment extends DialogFragment {
         pickerXInterface = commonPickerXInterface;
     }
 
+    public void setConfigData(CityPickerConfig config) {
+        cityPickerConfig = config;
+        initData();
+        initViews();
+    }
+
     public void hideDialog() {
 //        if (getDialog() != null) {
 //            getDialog().hide();
 //        }
-        dismiss();
         if (pickerXInterface != null) {
             pickerXInterface.onDismiss();
         }
