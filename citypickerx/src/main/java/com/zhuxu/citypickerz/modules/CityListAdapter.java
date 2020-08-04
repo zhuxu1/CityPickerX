@@ -84,7 +84,16 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 mList.add(0, new HeadPlaceBean(_headViewList.get(index).getTitle()));
             }
         }
-        notifyDataSetChanged();
+        if (_headViewList.size() >= 1){
+            notifyItemChanged(0);
+        }
+        if (_headViewList.size() >= 2){
+            notifyItemChanged(1);
+        }
+        if (_headViewList.size() >= 3){
+            notifyItemChanged(2);
+        }
+//        notifyDataSetChanged();
     }
 
     @Override
