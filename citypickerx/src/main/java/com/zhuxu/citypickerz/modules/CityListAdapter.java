@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,7 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //                }
 //            }
         }
+//        notifyItemRangeChanged(headViewList.size(), mList.size() - headViewList.size());
         notifyDataSetChanged();
     }
 
@@ -84,24 +86,29 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 mList.add(0, new HeadPlaceBean(_headViewList.get(index).getTitle()));
             }
         }
-        if (_headViewList.size() >= 1){
+        if (_headViewList.size() >= 1) {
             notifyItemChanged(0);
         }
-        if (_headViewList.size() >= 2){
+        if (_headViewList.size() >= 2) {
             notifyItemChanged(1);
         }
-        if (_headViewList.size() >= 3){
+        if (_headViewList.size() >= 3) {
             notifyItemChanged(2);
         }
 //        notifyDataSetChanged();
     }
 
+//    int indexViewHolderHead = 0;
+//    int indexViewHolderList = 0;
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case VIEWTYPE_HEAD:
+//                Log.e("zhuxu", "onCreateViewHolder : VIEWTYPE_HEAD : " + (++indexViewHolderHead));
                 return new HeadViewHolder(LayoutInflater.from(mContext).inflate(R.layout.act_custom_head_view, parent, false));
             default:
+//                Log.e("zhuxu", "onCreateViewHolder : VIEWTYPE_LIST" + (++indexViewHolderList));
                 return new ListViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_recyclerview_text, parent, false));
         }
     }
@@ -118,6 +125,7 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof HeadViewHolder) {
+//            Log.e("zhuxu", "onBindViewHolder " + position + " : head");
             HeadModelConfig config = headViewList.get(position);
             AutoLinefeedLayout childLayout = ((HeadViewHolder) holder).childLayout;
             ((HeadViewHolder) holder).tvTitle.setText(config.getTitle());
@@ -131,6 +139,7 @@ public class CityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
             }
         } else {
+//            Log.e("zhuxu", "onBindViewHolder " + position + " : list");
             String text = mList.get(position).getName();
             final CityBean cityBean = mList.get(position);
             ((ListViewHolder) holder).mTextView.setText(text);

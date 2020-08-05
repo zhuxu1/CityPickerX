@@ -12,7 +12,7 @@
 
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![API](https://img.shields.io/badge/API-16%2B-yellow.svg?style=flat)](https://android-arsenal.com/api?level=23)
-[ ![Download](https://api.bintray.com/packages/zhuxu820/citypickerx/CityPickerX/images/download.svg?version=0.6.5) ](https://bintray.com/zhuxu820/citypickerx/CityPickerX/0.6.5/link)
+[ ![Download](https://api.bintray.com/packages/zhuxu820/citypickerx/CityPickerX/images/download.svg?version=0.6.6) ](https://bintray.com/zhuxu820/citypickerx/CityPickerX/0.6.6/link)
 
 <br />
 
@@ -44,16 +44,16 @@
 <dependency>
 	<groupId>com.cocoz.utilsz</groupId>
 	<artifactId>citypickerx</artifactId>
-	<version>0.6.5</version>
+	<version>0.6.6</version>
 	<type>pom</type>
 </dependency>
 ```
 ```
-implementation 'com.cocoz.utilsz:citypickerx:0.6.5'   //必选
+implementation 'com.cocoz.utilsz:citypickerx:0.6.6'   //必选
 implementation 'com.android.support:recyclerview-v7:27.1.1'	//必选
 ```
 ```
-<dependency org="com.cocoz.utilsz" name="citypickerx" rev="0.6.5">
+<dependency org="com.cocoz.utilsz" name="citypickerx" rev="0.6.6">
 	<artifact name="citypickerx" ext="pom"></artifact>
 </dependency>
 ```

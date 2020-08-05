@@ -112,7 +112,7 @@ public class CityPickerZFragment extends Fragment {
 //        List<CityBean> _beanList = new ArrayList<>();
 //        for (CityBean cityBean : beanList){
 //            _beanList.add(cityBean);
-//            if (_beanList.size() > 10){
+//            if (_beanList.size() > 100){
 //                beanList = _beanList;
 //                break;
 //            }
@@ -203,6 +203,8 @@ public class CityPickerZFragment extends Fragment {
         mZCitypickerRecycleview.addItemDecoration(new StickHeaderDecoration(getActivity(), 2));
         mZCitypickerRecycleview.setLayoutManager(layoutManager);
         mZCitypickerRecycleview.setAdapter(mAdapter);
+//        mZCitypickerRecycleview.setHasFixedSize(true);
+//        mZCitypickerRecycleview.setItemViewCacheSize(300);
         mZCitypickerRecycleview.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -256,7 +258,7 @@ public class CityPickerZFragment extends Fragment {
             }
         }
         mAdapter.addHeadViews(headViews);
-        mZCitypickerSideindexbar.addLetters(sideIndexList);
+//        mZCitypickerSideindexbar.addLetters(sideIndexList);
     }
 
     public void updateData(String tag, List<CityBean> _listBeans) {

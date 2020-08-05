@@ -8,7 +8,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 27
         versionCode 44
-        versionName "0.6.5"
+        versionName "0.6.6"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -48,7 +48,7 @@ group = "com.cocoz.utilsz"
 //发布到JCenter上的项目名字，必须填写
 def libName = "CityPickerX"
 // 版本号，下次更新是只需要更改版本号即可
-version = "0.6.5"
+version = "0.6.6"
 /**  上面配置后上传至JCenter后的编译路径是这样的： compile 'group:libName:version'  **/
 
 //生成源文件

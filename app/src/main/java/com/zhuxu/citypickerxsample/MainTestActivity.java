@@ -78,6 +78,7 @@ public class MainTestActivity extends AppCompatActivity {
         findViewById(R.id.jump_btn2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.e("zhuxu","=============startShow==============");
                 getSupportFragmentManager().beginTransaction().show(cityPickerZFragment).commitAllowingStateLoss();
             }
         });
@@ -118,6 +119,7 @@ public class MainTestActivity extends AppCompatActivity {
                     public void onInit() {
                         // 初始化完成后的请求
                         // 例如定位，更新
+                        Log.e("zhuxu","=============initShow==============");
                     }
                 });
             }
