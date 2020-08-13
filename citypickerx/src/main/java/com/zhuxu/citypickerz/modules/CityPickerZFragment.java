@@ -40,6 +40,7 @@ import java.util.List;
 public class CityPickerZFragment extends Fragment {
 
     public static final String TAG = "CityPickerX";
+    public static final String TAG_HEADP = "TAG_HEADP";
     private static final String STR_CONFIG_HINT_ERROR = "解析失败,请检查启动调用是否合规!";
 
     private SearchView mZCitypickerSearchview;
@@ -49,6 +50,9 @@ public class CityPickerZFragment extends Fragment {
     private SideIndexBar mZCitypickerSideindexbar;
     private TextView mCenterIndexHint;
     private TextView tvEmpty;
+
+    private LinearLayout layoutHeadP;
+    private TextView tvHeadP;
 
     public static CityPickerZFragment newInstance(CityPickerConfig config) {
         final CityPickerZFragment fragment = new CityPickerZFragment();
@@ -137,6 +141,8 @@ public class CityPickerZFragment extends Fragment {
         mZCitypickerSideindexbar = getView().findViewById(R.id.z_citypicker_sideindexbar);
         mCenterIndexHint = getView().findViewById(R.id.layout_citylist_index_hint);
         tvEmpty = getView().findViewById(R.id.z_citypicker_scrollview_recycleview_empty);
+        layoutHeadP = getView().findViewById(R.id.layout_citylist_z_main_titlehead_p);
+        tvHeadP = getView().findViewById(R.id.layout_citylist_z_main_titlehead);
         mZCitypickerRecycleview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -258,7 +264,16 @@ public class CityPickerZFragment extends Fragment {
             }
         }
         mAdapter.addHeadViews(headViews);
-//        mZCitypickerSideindexbar.addLetters(sideIndexList);
+        mZCitypickerSideindexbar.addLetters(sideIndexList);
+    }
+
+    public LinearLayout getLayoutHeadP() {
+        return layoutHeadP;
+    }
+
+    public void updateHeadP(String text) {
+        layoutHeadP.setVisibility(View.VISIBLE);
+        tvHeadP.setText(text);
     }
 
     public void updateData(String tag, List<CityBean> _listBeans) {

@@ -18,6 +18,31 @@
             android:layout_height="wrap_content" />
 
         <LinearLayout
+            android:id="@+id/layout_citylist_z_main_titlehead_p"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="10dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/layout_citylist_z_main_titlehead"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="当前选择:"
+                android:textColor="@color/z_color_black_txt"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.4dp"
+                android:background="@color/z_color_gray_hint" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
